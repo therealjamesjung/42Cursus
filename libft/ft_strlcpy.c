@@ -6,13 +6,13 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:44:46 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:44:50 by jaekjung         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:59:56 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (str[index] != '\0')
@@ -22,9 +22,9 @@ int ft_strlen(char *str)
 	return (index);
 }
 
-unsigned int ft_strlcpy(char *dest, char *src, unsigned int size)
+unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
-	unsigned int index;
+	unsigned int	index;
 
 	index = 0;
 	while (src[index] != '\0' && index + 1 < size)

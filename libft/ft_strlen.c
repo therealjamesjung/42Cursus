@@ -6,13 +6,13 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:43:31 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:43:32 by jaekjung         ###   ########.fr       */
+/*   Updated: 2021/11/08 17:00:43 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (str[index] != '\0')

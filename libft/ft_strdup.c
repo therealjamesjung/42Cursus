@@ -6,15 +6,15 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:52:05 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:52:05 by jaekjung         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:58:08 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (str[index] != '\0')
@@ -22,10 +22,10 @@ int ft_strlen(char *str)
 	return (index);
 }
 
-char *ft_strdup(char *src)
+char	*ft_strdup(char *src)
 {
-	int i;
-	char *dup_str;
+	int		i;
+	char	*dup_str;
 
 	dup_str = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
 	if (dup_str == NULL)

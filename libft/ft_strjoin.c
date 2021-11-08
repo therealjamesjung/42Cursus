@@ -6,15 +6,15 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:46:12 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:46:13 by jaekjung         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:58:52 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (str[index] != '\0')
@@ -22,9 +22,9 @@ int ft_strlen(char *str)
 	return (index);
 }
 
-char *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
-	int index;
+	int	index;
 
 	index = -1;
 	while (src[++index] != '\0')
@@ -33,10 +33,10 @@ char *ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-long long _calc_length(int size, char **strs, int sep_len)
+long long	_calc_length(int size, char **strs, int sep_len)
 {
-	int index;
-	long long res_length;
+	int			index;
+	long long	res_length;
 
 	index = -1;
 	res_length = 0;
@@ -48,12 +48,12 @@ long long _calc_length(int size, char **strs, int sep_len)
 	return (res_length - sep_len + 1);
 }
 
-char *ft_strjoin(int size, char **strs, char *sep)
+char	*ft_strjoin(int size, char **strs, char *sep)
 {
-	long long result_len;
-	long long index;
-	char *result;
-	char *tmp;
+	long long	result_len;
+	long long	index;
+	char		*result;
+	char		*tmp;
 
 	if (!size)
 		return ((char *)malloc(sizeof(char)));

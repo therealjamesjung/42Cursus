@@ -6,18 +6,19 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:45:37 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:45:37 by jaekjung         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:58:24 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
-	int answer;
-	int is_positive;
+	int	answer;
+	int	is_positive;
 
 	answer = 0;
 	is_positive = 1;
-	while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' || *str == '\r' || *str == ' ')
+	while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f' \
+		|| *str == '\r' || *str == ' ')
 		str++;
 	while (*str == '-' || *str == '+')
 	{

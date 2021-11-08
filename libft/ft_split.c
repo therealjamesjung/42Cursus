@@ -6,15 +6,15 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 16:46:57 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:46:58 by jaekjung         ###   ########.fr       */
+/*   Updated: 2021/11/08 16:58:40 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int index;
+	int	index;
 
 	index = 0;
 	while (str[index] != '\0')
@@ -24,10 +24,10 @@ int ft_strlen(char *str)
 	return (index);
 }
 
-char *ft_strdup(char *src)
+char	*ft_strdup(char *src)
 {
-	int i;
-	char *dup_str;
+	int		i;
+	char	*dup_str;
 
 	dup_str = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
 	if (dup_str == NULL)
@@ -39,11 +39,11 @@ char *ft_strdup(char *src)
 	return (dup_str);
 }
 
-int _word_count(char *str, int length)
+int	_word_count(char *str, int length)
 {
-	int index;
-	int cnt;
-	int flag;
+	int	index;
+	int	cnt;
+	int	flag;
 
 	index = -1;
 	flag = (str[0] != '\0');
@@ -62,11 +62,11 @@ int _word_count(char *str, int length)
 	return (cnt);
 }
 
-char *_init_str(char *str, char *charset, int length)
+char	*_init_str(char *str, char *charset, int length)
 {
-	int i;
-	int j;
-	char *new_str;
+	int		i;
+	int		j;
+	char	*new_str;
 
 	new_str = ft_strdup(str);
 	i = -1;
@@ -82,13 +82,13 @@ char *_init_str(char *str, char *charset, int length)
 	return (new_str);
 }
 
-char **ft_split(char *str, char *charset)
+char	**ft_split(char *str, char *charset)
 {
-	int i;
-	int index;
-	int len;
-	char *_removed;
-	char **result;
+	int		i;
+	int		index;
+	int		len;
+	char	*_removed;
+	char	**result;
 
 	len = ft_strlen(str);
 	_removed = _init_str(str, charset, len);
@@ -102,7 +102,7 @@ char **ft_split(char *str, char *charset)
 		if (_removed[i] == '\0' || !ft_strlen(_removed + i))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		result[index++] = ft_strdup(_removed + i);
 		i += ft_strlen(_removed + i);
