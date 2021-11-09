@@ -6,13 +6,13 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 16:37:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/09 16:45:35 by jaekjung         ###   ########.fr       */
+/*   Updated: 2021/11/09 16:54:33 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int ft_isdigit(int c)
 {
-	if (c >= 0 && c <= 9)
+	if (c >= '0' && c <= '9')
 		return (c);
 	return (0);
 }
