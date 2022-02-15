@@ -5,33 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 16:44:46 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:59:56 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/09/13 16:18:29 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/02/05 14:46:46 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
+#include "libft.h"
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	int	index;
+	size_t	index;
+	size_t	src_len;
 
 	index = 0;
-	while (str[index] != '\0')
+	src_len = ft_strlen(src);
+	if (!size)
+		return (src_len);
+	while (index < src_len && index < size - 1)
 	{
+		dst[index] = src[index];
 		index++;
 	}
-	return (index);
-}
-
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
-{
-	unsigned int	index;
-
-	index = 0;
-	while (src[index] != '\0' && index + 1 < size)
-	{
-		dest[index] = src[index];
-		index++;
-	}
-	dest[index] = '\0';
-	return (ft_strlen(src));
+	if (size > 0)
+		dst[index] = '\0';
+	return (src_len);
 }

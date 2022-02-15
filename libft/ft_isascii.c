@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 16:56:22 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/09 17:02:23 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/12/10 17:10:44 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/01/22 14:59:05 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isascii(int c)
 {

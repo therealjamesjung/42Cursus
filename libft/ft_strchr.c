@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 17:26:55 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/16 17:35:28 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/12/16 22:05:24 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/02/05 14:05:32 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(char *s, int c)
-{
-	char	*p;
+#include "libft.h"
 
-	p = s;
-	while (*p != '\0')
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != '\0')
 	{
-		if (*p == c)
-			return (p);
-		p++;
+		if (*s == (unsigned char)c)
+			return ((char *)s);
+		s++;
 	}
+	if ((unsigned char)c == '\0')
+		return ((char *)s);
 	return (0);
 }

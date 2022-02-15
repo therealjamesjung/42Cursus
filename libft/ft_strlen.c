@@ -5,14 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 16:43:31 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 17:00:43 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/09/11 13:46:25 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/02/05 14:48:46 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(char *str)
+#include "libft.h"
+
+size_t	ft_strlen(const char *str)
 {
-	int	index;
+	size_t	index;
 
 	index = 0;
 	while (str[index] != '\0')

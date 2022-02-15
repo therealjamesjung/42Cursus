@@ -5,72 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 16:46:12 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:58:52 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/10/19 20:18:21 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/02/05 14:19:35 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-int	ft_strlen(char *str)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	int	index;
+	size_t	index;
+	size_t	len;
+	char	*result;
 
+	if (!s1 && !s2)
+		return (0);
+	else if (!s1)
+		return (ft_strdup(s2));
+	else if (!s2)
+		return (ft_strdup(s1));
+	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	result = (char *)malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (0);
 	index = 0;
-	while (str[index] != '\0')
-		index++;
-	return (index);
-}
-
-char	*ft_strcpy(char *dest, char *src)
-{
-	int	index;
-
-	index = -1;
-	while (src[++index] != '\0')
-		dest[index] = src[index];
-	dest[index] = '\0';
-	return (dest);
-}
-
-long long	_calc_length(int size, char **strs, int sep_len)
-{
-	int			index;
-	long long	res_length;
-
-	index = -1;
-	res_length = 0;
-	while (++index < size)
-	{
-		res_length += ft_strlen(strs[index]);
-		res_length += sep_len;
-	}
-	return (res_length - sep_len + 1);
-}
-
-char	*ft_strjoin(int size, char **strs, char *sep)
-{
-	long long	result_len;
-	long long	index;
-	char		*result;
-	char		*tmp;
-
-	if (!size)
-		return ((char *)malloc(sizeof(char)));
-	result_len = _calc_length(size, strs, ft_strlen(sep));
-	result = (char *)malloc(sizeof(char) * result_len);
-	tmp = result;
-	index = -1;
-	while (++index < size)
-	{
-		ft_strcpy(tmp, strs[index]);
-		tmp += ft_strlen(strs[index]);
-		if (index < size - 1)
-		{
-			ft_strcpy(tmp, sep);
-			tmp += ft_strlen(sep);
-		}
-	}
-	*tmp = '\0';
+	while (*s1 != '\0')
+		result[index++] = *s1++;
+	while (*s2 != '\0')
+		result[index++] = *s2++;
+	result[index] = '\0';
 	return (result);
 }

@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 17:32:01 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/16 17:35:32 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/12/16 21:22:37 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/02/05 15:18:01 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strrchr(char *s, int c)
-{
-	char	*p;
+#include "libft.h"
 
-	p = s;
-	while (*p != '\0')
-		p++;
-	while (p != s)
+char	*ft_strrchr(const char *s, int c)
+{
+	size_t	index;
+
+	index = ft_strlen(s) + 1;
+	while (index > 0)
 	{
-		if (*p == c)
-			return (p);
-		p--;
+		index--;
+		if (s[index] == (unsigned char)c)
+			return ((char *)(s + index));
 	}
 	return (0);
 }

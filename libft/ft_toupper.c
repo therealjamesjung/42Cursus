@@ -5,14 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 17:11:43 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/09 17:14:19 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/10/19 14:21:50 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/01/22 17:32:03 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_toupper(int c)
 {
 	if (c >= 'a' && c <= 'z')
-		return (c - 'a' + 'A');
+		return (c - 32);
 	return (c);
 }

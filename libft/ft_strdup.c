@@ -5,34 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 16:52:05 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:58:08 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/12/16 20:44:22 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/02/05 14:06:16 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-int	ft_strlen(char *str)
+char	*ft_strdup(const char *src)
 {
-	int	index;
+	char	*dest;
+	size_t	len;
+	size_t	index;
 
-	index = 0;
-	while (str[index] != '\0')
-		index++;
-	return (index);
-}
-
-char	*ft_strdup(char *src)
-{
-	int		i;
-	char	*dup_str;
-
-	dup_str = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (dup_str == NULL)
+	len = ft_strlen(src);
+	dest = (char *)malloc(sizeof(char) * (len + 1));
+	if (!dest)
 		return (0);
-	i = -1;
-	while (src[++i] != '\0')
-		dup_str[i] = src[i];
-	dup_str[i] = '\0';
-	return (dup_str);
+	index = -1;
+	while (++index <= len)
+		dest[index] = src[index];
+	return (dest);
 }

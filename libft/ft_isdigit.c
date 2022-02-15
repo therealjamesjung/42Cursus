@@ -5,14 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 16:37:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/09 16:57:08 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/12/10 16:23:12 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/01/22 14:59:09 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-		return (c);
+		return (1);
 	return (0);
 }

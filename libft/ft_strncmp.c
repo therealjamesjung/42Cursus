@@ -5,24 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 16:44:21 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 17:00:08 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/09/13 14:22:31 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/02/05 16:00:36 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strncmp(char *s1, char *s2, unsigned int n)
+#include "libft.h"
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	while (*s1 != '\0' && *s2 != '\0')
+	size_t	index;
+
+	index = 0;
+	while (s1[index] != '\0' || s2[index] != '\0')
 	{
-		if (n == 0)
+		if (index == n)
 			break ;
-		if (*s1 != *s2)
-			break ;
-		s1++;
-		s2++;
-		n--;
+		if (s1[index] != s2[index])
+			return ((unsigned char)s1[index] - (unsigned char)s2[index]);
+		index++;
 	}
-	if (n == 0)
-		return (0);
-	return (*s1 - *s2);
+	return (0);
 }

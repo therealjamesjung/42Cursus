@@ -3,51 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/08 16:46:57 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/08 16:58:40 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/11/08 13:46:57 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/02/09 15:31:26 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-int	ft_strlen(char *str)
+int	_word_count(char *str, size_t length)
 {
-	int	index;
-
-	index = 0;
-	while (str[index] != '\0')
-	{
-		index++;
-	}
-	return (index);
-}
-
-char	*ft_strdup(char *src)
-{
-	int		i;
-	char	*dup_str;
-
-	dup_str = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (dup_str == NULL)
-		return (0);
-	i = -1;
-	while (src[++i] != '\0')
-		dup_str[i] = src[i];
-	dup_str[i] = '\0';
-	return (dup_str);
-}
-
-int	_word_count(char *str, int length)
-{
-	int	index;
-	int	cnt;
-	int	flag;
+	size_t	index;
+	int		cnt;
+	int		flag;
 
 	index = -1;
-	flag = (str[0] != '\0');
 	cnt = 0;
+	flag = (str[0] != '\0');
 	while (++index < length)
 	{
 		if (str[index] == '\0')
@@ -62,39 +35,39 @@ int	_word_count(char *str, int length)
 	return (cnt);
 }
 
-char	*_init_str(char *str, char *charset, int length)
+char	*_init_str(const char *str, char c, int length)
 {
 	int		i;
-	int		j;
 	char	*new_str;
 
 	new_str = ft_strdup(str);
+	if (!new_str)
+		return (0);
 	i = -1;
-	while (++i < ft_strlen(charset))
+	while (++i < length)
 	{
-		j = -1;
-		while (++j < length)
-		{
-			if (new_str[j] == charset[i])
-				new_str[j] = '\0';
-		}
+		if (new_str[i] == c)
+			new_str[i] = '\0';
 	}
 	return (new_str);
 }
 
-char	**ft_split(char *str, char *charset)
+void	_free_all(char **result, int index)
 {
-	int		i;
-	int		index;
-	int		len;
-	char	*_removed;
-	char	**result;
+	int	i;
 
-	len = ft_strlen(str);
-	_removed = _init_str(str, charset, len);
-	result = (char **)malloc(sizeof(char *) * (_word_count(_removed, len) + 1));
-	if (result == NULL)
-		return (0);
+	i = -1;
+	while (++i < index)
+		free(result[i]);
+	free(result);
+	result = NULL;
+}
+
+void	_get_result(char **result, char *_removed, size_t len)
+{
+	size_t	i;
+	size_t	index;
+
 	i = 0;
 	index = 0;
 	while (i < len)
@@ -104,9 +77,31 @@ char	**ft_split(char *str, char *charset)
 			i++;
 			continue ;
 		}
-		result[index++] = ft_strdup(_removed + i);
+		result[index] = ft_strdup(_removed + i);
+		if (!result[index])
+			return (_free_all(result, index));
+		index++;
 		i += ft_strlen(_removed + i);
 	}
 	result[index] = NULL;
+}
+
+char	**ft_split(const char *str, char c)
+{
+	char	*_removed;
+	char	**result;
+
+	if (!str)
+		return (0);
+	_removed = _init_str(str, c, ft_strlen(str));
+	if (!_removed)
+		return (0);
+	result = (char **)malloc(sizeof(char *) * \
+		(_word_count(_removed, ft_strlen(str)) + 1));
+	if (!result)
+		return (0);
+	_get_result(result, _removed, ft_strlen(str));
+	free(_removed);
+	_removed = NULL;
 	return (result);
 }

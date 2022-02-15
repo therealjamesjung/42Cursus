@@ -5,14 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 17:03:14 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/09 17:09:20 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/12/10 17:12:10 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/01/22 15:34:06 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isprint(int c)
 {
 	if (c >= 32 && c <= 126)
-		return (c);
+		return (1);
 	return (0);
 }

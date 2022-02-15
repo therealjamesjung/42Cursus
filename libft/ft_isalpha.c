@@ -5,14 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 16:19:41 by jaekjung          #+#    #+#             */
-/*   Updated: 2021/11/09 16:57:21 by jaekjung         ###   ########.fr       */
+/*   Created: 2021/12/10 15:19:24 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/01/22 14:59:02 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+
 int	ft_isalpha(int c)
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (c);
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	else if (c >= 'A' && c <= 'Z')
+		return (1);
 	return (0);
 }
