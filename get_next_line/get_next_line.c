@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/03 16:38:23 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:47:28 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,16 @@ char    *get_next_line(int fd)
 		// printf("read: %s buffer: %d\n", read_buffer, buffer);
 		_append(line, read_buffer, (int) buffer);
 		// printf("copied line: %s\n", line);
-		if (line[0] != -1 && (int) find_newline(line) == -1 && buffer == BUFFER_SIZE)
-			index += BUFFER_SIZE;
-		else
+		index += (int) buffer;
+		// line[0] == -1 -> line ended with newline on previous function call 
+		// find_newline(line) != -1 -> new line found on read
+		// buffer != BUFFER_SIZE -> file ended on read
+		if (line[0] == -1 || (int) find_newline(line) != -1 || buffer != BUFFER_SIZE)
 			break ;
+		// if (line[0] != -1 && (int) find_newline(line) == -1 && buffer == BUFFER_SIZE)
+		// 	index += BUFFER_SIZE;
+		// else
+		// 	break ;
 	}
 	result = get_return_val(&line); 
 	return (result);
@@ -72,7 +78,7 @@ char    *get_return_val(char **line)
 		return (0);
 	}
 	else
-	{ // if line is read smaller than givin BUFFER_SIZE
+	{ // if line is read smaller than given BUFFER_SIZE
 		result = _strdup(*line);
 		(*line)[0] = -1;
 		return (result);
