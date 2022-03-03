@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/03 16:32:38 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:38:23 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ char    *get_return_val(char **line)
         return (result);
     }
 	else if ((*line)[0] == -1)
-	{
+	{ // if line ended with new line on previous call
 		free(*line);
 		(*line) = NULL;
 		return (0);
 	}
 	else
-	{
+	{ // if line is read smaller than givin BUFFER_SIZE
 		result = _strdup(*line);
 		(*line)[0] = -1;
 		return (result);
