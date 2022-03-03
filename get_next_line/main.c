@@ -13,8 +13,14 @@ int main()
         s = get_next_line(fd);
         if (!s)
             break ;
-        printf("result: >%s<\n", s);
+        printf("%s", s);
+        free(s);
         n++;
+    }
+    printf("asdf\n");
+    while(1)
+    {
+        
     }
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:02 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/02/22 16:58:21 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:10:35 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,9 @@ size_t	_strlen(const char *str)
 	return (index);
 }
 
-
-int find_newline(char *s)
+size_t  find_newline(char *s)
 { // Finds the  first index of new line in given string. returns -1 if no occurences
-    int index;
+    size_t index;
     if (!s)
         return (-1);
     index = -1;
@@ -35,21 +34,21 @@ int find_newline(char *s)
     return (-1);
 }
 
-char    *realloc_line(char *s, int cnt)
+char    *realloc_line(char **s, int cnt)
 {
     char    *new_line;
     int     index;
 
-    if (!s)
+    if (!(*s))
         return (0);
-    new_line = malloc(sizeof(char) * (BUFFER_SIZE + cnt + 1));
+    new_line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + cnt + 1));
     if (!new_line)
         return (0);
     index = -1;
-    while (s[++index] != '\0')
-        new_line[index] = s[index];
-    free(s);
-    s = NULL;
+    while ((*s)[++index] != '\0')
+        new_line[index] = (*s)[index];
+    free(*s);
+    *s = NULL;
     return (new_line);
 }
 
@@ -75,7 +74,7 @@ char	*_strdup(const char *src)
 	size_t	len;
 	size_t	index;
 
-    if (!src || src[0] == -1)
+    if (!src)
         return (0);
 	len = _strlen(src);
 	dest = (char *)malloc(sizeof(char) * (len + 1));
@@ -84,5 +83,23 @@ char	*_strdup(const char *src)
 	index = -1;
 	while (++index <= len)
 		dest[index] = src[index];
+    dest[++index] = '\0';
+	return (dest);
+}
+
+char    *_strndup(const char *src, size_t len)
+{
+    char	*dest;
+	size_t	index;
+
+    if (!src || src[0] == -1 || len < 0)
+        return (0);
+	dest = (char *)malloc(sizeof(char) * (len + 1));
+	if (!dest)
+		return (0);
+	index = -1;
+	while (++index <= len)
+		dest[index] = src[index];
+    dest[++index] = '\0';
 	return (dest);
 }

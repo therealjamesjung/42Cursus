@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/02/22 17:15:52 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/03 16:32:38 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,68 +22,59 @@ char    *get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
-	printf("line: %s index: %d\n", line, index);
 	if (!line)
-	{
+	{ // Inital allocation
 		index = 0;
 		line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	}
-	printf("line: %s index: %d\n", line, index);
+	// printf("line: %s index: %d\n", line, index);
 	while (1)
 	{
-		line = realloc_line(line, index);
-		// printf("realloced line: %s\n", line);
+		line = realloc_line(&line, index);
+		// printf("reallocated line: %s\n", line);
 		buffer = read(fd, read_buffer, BUFFER_SIZE);
 		// printf("read: %s buffer: %d\n", read_buffer, buffer);
 		_append(line, read_buffer, (int) buffer);
 		// printf("copied line: %s\n", line);
-		if (line[0] != -1 && find_newline(line) == -1 && buffer == BUFFER_SIZE)
+		if (line[0] != -1 && (int) find_newline(line) == -1 && buffer == BUFFER_SIZE)
 			index += BUFFER_SIZE;
 		else
 			break ;
 	}
-	result = get_return_val(line, buffer); 
-	printf("@@@@@@@ %s\n", result);
+	result = get_return_val(&line); 
 	return (result);
 }
 
 
-char    *get_return_val(char *line, size_t buffer)
+char    *get_return_val(char **line)
 {
     char    *result;
     char    *tmp;
     int     index;
 
-    // printf("val line: %s buf: %d\n", line, buffer);
-    if (find_newline(line) != -1)
-    { // if line has a newline, return string before newline and save the remainder to line
-        index = find_newline(line);
-        line[index] = '\0';
-        result = _strdup(line);
-        tmp = _strdup(line + index + 1);
-        line[0] = -1;
-		printf("WTF %s\n", line);
+    // printf("val line: #%s# buf: %d\n", *line, buffer);
+    if ((int) find_newline(*line) != -1)
+    { // if line has a newline, return string until newline and save the remainder to line
+        index = find_newline(*line);
+        result = _strndup(*line, index);
+        tmp = _strdup(*line + index + 1);
+        (*line)[0] = -1;
 		if (tmp[0] != '\0')
-		{
-			printf("HEY\n");
-        	line = _strdup(tmp);
-		}
-		printf("Why not this? %s\n", line);
+        	*line = _strdup(tmp);
         free(tmp);
 		tmp = NULL;
-		printf("Why not this? %s\n", line);
         return (result);
     }
-	else if (line[0] == -1)
+	else if ((*line)[0] == -1)
 	{
-		free(line);
+		free(*line);
+		(*line) = NULL;
 		return (0);
 	}
 	else
 	{
-		printf("asd\n");
-		result = _strdup(line);
-		line[0] = -1;
+		result = _strdup(*line);
+		(*line)[0] = -1;
 		return (result);
 	}
 }
