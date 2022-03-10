@@ -17,10 +17,10 @@ int main()
         free(s);
         n++;
     }
-    printf("asdf\n");
-    while(1)
-    {
+    // printf("asdf\n");
+    // while(1)
+    // {
         
-    }
+    // }
     return 0;
 }

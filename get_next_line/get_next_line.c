@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/03 16:47:28 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:21:05 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char    *get_next_line(int fd)
 {
-	char			read_buffer[BUFFER_SIZE];
-	char *result;
-	static char		*line;
-	static int		index;
-	size_t			buffer;
+	char		read_buffer[BUFFER_SIZE];
+	char 		*result;
+	static char	*line;
+	static int	index;
+	size_t		buffer;
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
@@ -27,25 +27,15 @@ char    *get_next_line(int fd)
 		index = 0;
 		line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	}
-	// printf("line: %s index: %d\n", line, index);
+	printf("line: %s index: %d\n", line, index);
 	while (1)
 	{
 		line = realloc_line(&line, index);
-		// printf("reallocated line: %s\n", line);
 		buffer = read(fd, read_buffer, BUFFER_SIZE);
-		// printf("read: %s buffer: %d\n", read_buffer, buffer);
 		_append(line, read_buffer, (int) buffer);
-		// printf("copied line: %s\n", line);
 		index += (int) buffer;
-		// line[0] == -1 -> line ended with newline on previous function call 
-		// find_newline(line) != -1 -> new line found on read
-		// buffer != BUFFER_SIZE -> file ended on read
-		if (line[0] == -1 || (int) find_newline(line) != -1 || buffer != BUFFER_SIZE)
+		if (!line || (int) find_newline(line) != -1 || buffer != BUFFER_SIZE)
 			break ;
-		// if (line[0] != -1 && (int) find_newline(line) == -1 && buffer == BUFFER_SIZE)
-		// 	index += BUFFER_SIZE;
-		// else
-		// 	break ;
 	}
 	result = get_return_val(&line); 
 	return (result);
@@ -54,19 +44,20 @@ char    *get_next_line(int fd)
 
 char    *get_return_val(char **line)
 {
-    char    *result;
-    char    *tmp;
-    int     index;
+    char	*result;
+    char	*tmp;
+    size_t	index;
 
-    // printf("val line: #%s# buf: %d\n", *line, buffer);
-    if ((int) find_newline(*line) != -1)
+	if (!(*line))
+		return (0);
+    else if ((int) find_newline(*line) != -1)
     { // if line has a newline, return string until newline and save the remainder to line
         index = find_newline(*line);
         result = _strndup(*line, index);
-        tmp = _strdup(*line + index + 1);
+        tmp = _strndup(*line + index + 1, _strlen(*line + index + 1));
         (*line)[0] = -1;
 		if (tmp[0] != '\0')
-        	*line = _strdup(tmp);
+        	*line = _strndup(tmp, _strlen(tmp));
         free(tmp);
 		tmp = NULL;
         return (result);
@@ -79,7 +70,7 @@ char    *get_return_val(char **line)
 	}
 	else
 	{ // if line is read smaller than given BUFFER_SIZE
-		result = _strdup(*line);
+		result = _strndup(*line, _strlen(*line));
 		(*line)[0] = -1;
 		return (result);
 	}
