@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/10 16:21:05 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:38:59 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ char    *get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (0);
-	if (!line)
-	{ // Inital allocation
-		index = 0;
-		line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	}
-	printf("line: %s index: %d\n", line, index);
+	// if (!line)
+	// { // Inital allocation
+	// 	index = 0;
+	// 	line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	// }
+	// printf("line: %s index: %d\n", line, index);
 	while (1)
 	{
 		line = realloc_line(&line, index);
+		if (!line)
+			return (0);
 		buffer = read(fd, read_buffer, BUFFER_SIZE);
 		_append(line, read_buffer, (int) buffer);
 		index += (int) buffer;
@@ -56,10 +58,12 @@ char    *get_return_val(char **line)
         result = _strndup(*line, index);
         tmp = _strndup(*line + index + 1, _strlen(*line + index + 1));
         (*line)[0] = -1;
-		if (tmp[0] != '\0')
+		if (tmp)
+		{
         	*line = _strndup(tmp, _strlen(tmp));
-        free(tmp);
-		tmp = NULL;
+        	free(tmp);
+			tmp = NULL;
+		}
         return (result);
     }
 	else if ((*line)[0] == -1)

@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:02 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/10 16:20:08 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:38:31 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char    *realloc_line(char **s, int cnt)
         *s = NULL;
         return (0);
     }
+    if (!(*s))
+        return (0);
     new_line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + cnt + 1));
     if (!new_line)
         return (0);
@@ -78,7 +80,7 @@ char    *_strndup(const char *src, size_t len)
     char	*dest;
 	size_t	index;
 
-    if (!src || src[0] == -1 || len < 0)
+    if (src[0] == '\0' || len < 0)
         return (0);
 	dest = (char *)malloc(sizeof(char) * (len + 1));
 	if (!dest)
