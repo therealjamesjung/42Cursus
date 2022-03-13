@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:02 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/13 16:59:28 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/13 18:45:25 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,18 +76,19 @@ char	*_strndup(const char *src, size_t len)
 	index = -1;
 	while (++index <= len)
 		dest[index] = src[index];
-	dest[++index] = '\0';
+	dest[index] = '\0';
 	return (dest);
 }
 
-size_t  _find_newline(char *s)
+size_t	_find_newline(char *s)
 {
-    size_t index;
-    if (!s)
-        return (-1);
-    index = -1;
-    while (s[++index] != '\0')
-        if (s[index] == '\n')
-            return (index);
-    return (-1);
+	size_t	index;
+
+	if (!s)
+		return (-1);
+	index = -1;
+	while (s[++index] != '\0')
+		if (s[index] == '\n')
+			return (index);
+	return (-1);
 }
