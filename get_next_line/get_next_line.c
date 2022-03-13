@@ -3,79 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/10 17:38:59 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/13 17:01:07 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char    *get_next_line(int fd)
+char	*_append(char **line, char *read_buffer)
 {
-	char		read_buffer[BUFFER_SIZE];
-	char 		*result;
-	static char	*line;
-	static int	index;
-	size_t		buffer;
+	char	*result;
 
-	if (fd < 0 || BUFFER_SIZE < 1)
-		return (0);
-	// if (!line)
-	// { // Inital allocation
-	// 	index = 0;
-	// 	line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	// }
-	// printf("line: %s index: %d\n", line, index);
-	while (1)
-	{
-		line = realloc_line(&line, index);
-		if (!line)
-			return (0);
-		buffer = read(fd, read_buffer, BUFFER_SIZE);
-		_append(line, read_buffer, (int) buffer);
-		index += (int) buffer;
-		if (!line || (int) find_newline(line) != -1 || buffer != BUFFER_SIZE)
-			break ;
-	}
-	result = get_return_val(&line); 
+	result = ft_strjoin(*line, read_buffer);
+	free(*line);
+	*line = NULL;
 	return (result);
 }
 
-
-char    *get_return_val(char **line)
+char	*_split(char **line, size_t index)
 {
-    char	*result;
-    char	*tmp;
-    size_t	index;
+	char	*return_val;
+	char	*save_val;
 
-	if (!(*line))
+	return_val = _strndup(*line, index);
+	save_val = ft_strdup(*line + index + 1);
+	free(*line);
+	*line = NULL;
+	*line = save_val;
+	return (return_val);
+}
+
+char	*get_return_val(char **line, size_t buffer)
+{
+	char	*return_val;
+
+	if (buffer < 0)
 		return (0);
-    else if ((int) find_newline(*line) != -1)
-    { // if line has a newline, return string until newline and save the remainder to line
-        index = find_newline(*line);
-        result = _strndup(*line, index);
-        tmp = _strndup(*line + index + 1, _strlen(*line + index + 1));
-        (*line)[0] = -1;
-		if (tmp)
-		{
-        	*line = _strndup(tmp, _strlen(tmp));
-        	free(tmp);
-			tmp = NULL;
-		}
-        return (result);
-    }
-	else if ((*line)[0] == -1)
-	{ // if line ended with new line on previous call
+	else if (*line && (int) _find_newline(*line) >= 0)
+		return (_split(line, buffer));
+	else if (*line)
+	{	
+		return_val = ft_strdup(*line);
 		free(*line);
-		(*line) = NULL;
-		return (0);
+		*line = NULL;
+		return (return_val);
 	}
 	else
-	{ // if line is read smaller than given BUFFER_SIZE
-		result = _strndup(*line, _strlen(*line));
-		(*line)[0] = -1;
-		return (result);
+		return (0);
+}
+
+char	*get_next_line(int fd)
+{
+	char	read_buffer[BUFFER_SIZE + 1];
+	size_t		buffer;
+	static char	*line;
+
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (0);
+	
+	while (1)
+	{
+		buffer = read(fd, read_buffer, BUFFER_SIZE);
+		if (!buffer)
+			break ;
+		read_buffer[buffer] = '\0';
+		line = _append(&line, read_buffer);
+		if ((int) _find_newline(line) >= 0)
+			return (_split(&line, (int) _find_newline(line)));
 	}
+	return (get_return_val(&line, buffer));
 }
