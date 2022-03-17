@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:08 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/13 18:46:16 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:13:19 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*ft_strjoin(const char *s1, const char *s2);
 char	*_split(char **line, size_t index);
 char	*_append(char **line, char *read_buffer);
 char	*_strndup(const char *src, size_t len);
+void	_clean(char *read_buffer, size_t index);
 size_t	_find_newline(char *s);
 
 #endif
