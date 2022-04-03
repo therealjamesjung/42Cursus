@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:08 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/17 14:13:19 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/03/17 17:31:17 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <fcntl.h>
 
 char	*get_next_line(int fd);
 char	*get_return_val(char **line, size_t buffer);

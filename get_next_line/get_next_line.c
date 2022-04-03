@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/13 18:44:46 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/04/03 15:13:40 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*get_next_line(int fd)
 	while (1)
 	{
 		if ((int) _find_newline(line) >= 0)
-			return (_split(&line, (int) _find_newline(line)));
+			return (_split(&line, _find_newline(line)));
 		buffer = read(fd, read_buffer, BUFFER_SIZE);
 		if ((int) buffer <= 0)
 			break ;

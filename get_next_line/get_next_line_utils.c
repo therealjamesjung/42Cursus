@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jaekjung <jaekjung@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:52:02 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/03/13 18:45:25 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/04/03 15:25:18 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*_strndup(const char *src, size_t len)
 
 	if (len < 0)
 		return (0);
-	dest = (char *)malloc(sizeof(char) * (len + 1));
+	dest = (char *)malloc(sizeof(char) * (len + 2));
 	if (!dest)
 		return (0);
 	index = -1;
