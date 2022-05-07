@@ -1,15 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_c.c                                          :+:      :+:    :+:   */
+/*   print_s.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/01 22:35:45 by therealjame       #+#    #+#             */
-/*   Updated: 2022/05/01 22:50:17 by jaekjung         ###   ########.fr       */
+/*   Created: 2022/05/02 16:30:21 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/05/07 15:04:44 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
 
-void print_c(char c)
+int	print_s(va_list *ap)
+{
+	char*	s;
+
+	s = va_arg(*ap, char *);
+    if (!s)
+        return(write(1, "(null)", 6));
+	return (write(1, s, ft_strlen(s)));
+}

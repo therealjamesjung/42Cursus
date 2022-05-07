@@ -6,21 +6,30 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:00:09 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/05/02 12:08:31 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/05/07 15:05:48 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int _parse(char format)
+int _parse(const char format, va_list *ap)
 {
-	if (format == 'c');
-	else if (format == 's');
-	else if (format == 'p');
-	else if (format == 'd' || format == 'i');
-	else if (format == 'u');
-	else if (format == 'x' || format == 'X');
-	else if (format == '%');
+	if (format == 'c')
+		return (print_c(ap));
+	else if (format == 's')
+		return (print_s(ap));
+	else if (format == 'd' || format == 'i')
+		return (print_i(ap));
+	else if (format == 'u')
+		return (print_u(ap));
+	else if (format == '%')
+		return (write(1, "%", 1));
+	else if (format == 'p')
+		return (print_p(ap));
+	else if (format == 'x' || format == 'X')
+		return (print_x(ap, format == 'x'));
+	return (0);
+	
 }
 
 int ft_printf(const char *format, ...)
@@ -32,23 +41,13 @@ int ft_printf(const char *format, ...)
 	va_start(ap, format);
 	index = -1;
 	len = 0;
-	while (++index)
+	while (format[++index])
 	{
-		if (!format[index])
-			break;
-		else if (format[index] == '%')
-			len += _parse(format[index]); // Parse string
+		if (format[index] == '%')
+			len += _parse(format[++index], &ap);
 		else
-			len += 1; // put c
+			len += write(1, &format[index], 1);
 	}
 	va_end(ap);
-	return (0);
-}
-
-int main()
-{
-	int	a = printf("asd\n");
-
-	printf("%d", a);
-	return (0);
+	return (len);
 }
