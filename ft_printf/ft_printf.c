@@ -6,13 +6,13 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 20:00:09 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/05/07 15:05:48 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:13:17 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int _parse(const char format, va_list *ap)
+int	_parse(const char format, va_list *ap)
 {
 	if (format == 'c')
 		return (print_c(ap));
@@ -29,10 +29,9 @@ int _parse(const char format, va_list *ap)
 	else if (format == 'x' || format == 'X')
 		return (print_x(ap, format == 'x'));
 	return (0);
-	
 }
 
-int ft_printf(const char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		index;

@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 16:27:24 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/05/07 16:02:40 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:18:15 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	print_p(va_list *ap)
 {
 	char				hex[17];
-	unsigned long long 	ptr;
+	unsigned long long	ptr;
 	int					index;
 	int					len;
 
@@ -29,10 +29,10 @@ int	print_p(va_list *ap)
 		ptr /= 16;
 		len++;
 		if (!ptr)
-			break;
+			break ;
 	}
 	if (index < 0)
 		index = 0;
 	write(1, "0x", 2);
-	return (write(1, hex + index, 16 - index) + 2); 
+	return (write(1, hex + index, 16 - index) + 2);
 }

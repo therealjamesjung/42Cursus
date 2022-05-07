@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 17:01:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/05/07 15:46:13 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/05/07 16:17:10 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	print_x(va_list *ap, int mode)
 		ptr /= 16;
 		len++;
 		if (!ptr)
-			break;
+			break ;
 	}
 	if (index < 0)
 		index = 0;
-	return (write(1, hex + index, 8 - index)); 
+	return (write(1, hex + index, 8 - index));
 }
