@@ -3,3 +3,5 @@ a.out
 test.c
 test.py
 .vscode
+*.a
+*.o
