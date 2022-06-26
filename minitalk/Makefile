@@ -6,7 +6,7 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/10 14:12:56 by jaekjung          #+#    #+#              #
-#    Updated: 2022/06/26 15:38:49 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/06/26 15:42:18 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ $(LIB):
 	make -C $(LIB_DIR)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(SERVER_OBJS)
+	rm -f $(CLIENT_OBJS)
 	make -C $(LIB_DIR) clean
 
 fclean: clean

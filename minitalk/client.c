@@ -5,88 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 14:12:47 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/06/25 19:20:37 by jaekjung         ###   ########.fr       */
+/*   Created: 2022/06/10 14:12:41 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/06/26 18:14:58 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-t_info	g_info;
-
-static int	get_bit(void)
+void	send_msg(int pid, char *str)
 {
-	static int	str_index;
-	static int	bit_sent;
-
-	bit_sent++;
-	if (bit_sent > 8)
-	{
-		str_index++;
-		bit_sent = 1;
-	}
-	if (g_info.str[str_index])
-		return (g_info.str[str_index] & (1 << (8 - bit_sent)));
-	return (0);
-}
-
-static void	send_signal(int signo)
-{
+	int	index;
 	int	bit;
+	int	tmp;
 
-	bit = get_bit();
-	if (signo == SIGUSR2)
-		exit(0);
-	else if (signo == SIGUSR1)
+	index = -1;
+	while (++index < (int) ft_strlen(str))
 	{
-		if (!bit)
-			kill(g_info.server_pid, SIGUSR1);
-		else
-			kill(g_info.server_pid, SIGUSR2);
+		bit = -1;
+		while (++bit < 8)
+		{
+			tmp = str[index] >> (7 - bit) & 1;
+			if (tmp == 0)
+				kill(pid, SIGUSR1);
+			else if (tmp == 1)
+				kill(pid, SIGUSR2);
+			usleep(30);
+		}
+		usleep(300);
 	}
-}
-
-static void	check_connection(int signo)
-{
-	int	bit;
-
-	(void)signo;
-    ft_printf("Connection Success! ");
-	if (signal(SIGUSR1, send_signal) == SIG_ERR
-		|| signal(SIGUSR2, send_signal) == SIG_ERR)
-        {
-            ft_printf("[Error] Sigaction failed");
-            exit(1);
-        }
-	bit = get_bit();
-	if (!bit)
-		kill(g_info.server_pid, SIGUSR1);
-	else
-		kill(g_info.server_pid, SIGUSR2);
-}
-
-static void	init_signal(void)
-{
-	if (signal(SIGUSR1, check_connection) == SIG_ERR)
-		{
-            ft_printf("[Error] Sigaction failed.");
-            exit(1);
-        }
-	if (kill(g_info.server_pid, SIGUSR1) == -1)
-		{
-            ft_printf("[Error] Sigaction failed.");
-            exit(1);
-        }
 }
 
 int	main(int argc, char **argv)
 {
+	pid_t	pid;
+	char	*message;
+
 	if (argc != 3)
-		ft_printf("[Error] Wrong parameters.");
-	g_info.str = (unsigned char *)argv[2];
-	g_info.server_pid = ft_atoi(argv[1]);
-	_pid(0);
-	init_signal();
-	while (1)
-		pause();
+	{
+		ft_printf("Wrong number of arguments\n");
+		exit(1);
+	}
+	pid = ft_atoi(argv[1]);
+	if (pid < 100 || pid > 99998)
+	{
+		ft_printf("Invalid PID\n");
+		exit(1);
+	}
+	message = ft_strjoin(argv[2], "\n");
+	if (!message)
+		exit(1);
+	send_msg(pid, message);
+	free(message);
+	return (0);
 }
