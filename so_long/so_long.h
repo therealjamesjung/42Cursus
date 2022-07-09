@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:21:01 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/09 18:00:21 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/09 19:16:05 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ typedef struct s_point {
 typedef struct s_game {
 	void *mlx;
 	void *window;
+	int map_height;
+	int map_width;
+	int player_cnt;
+	int exit_cnt;
+	int pill_cnt;
 } t_game;
 
 typedef struct s_image {
