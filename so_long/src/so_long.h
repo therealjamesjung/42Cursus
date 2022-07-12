@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:21:01 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/12 17:15:10 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/12 17:57:23 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 # define SO_LONG_H
 
 # include <fcntl.h>
-# include "mlx/mlx.h"
-# include "libft/libft.h"
-# include "ft_printf/ft_printf.h"
-# include "gnl/get_next_line.h"
+# include "../lib/mlx/mlx.h"
+# include "../lib/libft/libft.h"
+# include "../lib/ft_printf/ft_printf.h"
+# include "../lib/gnl/get_next_line.h"
 
 typedef struct s_point {
 	int x;
@@ -39,6 +39,7 @@ typedef struct s_image {
 	void *wall;
 	void *floor;
 	void *pill;
+	void *door;
 	void *left;
 	void *right;
 	void *front;

@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:56:54 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/12 17:39:12 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/12 17:46:35 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void _init_image(t_game *game, t_image *image)
 		game->mlx, "./resources/floor.xpm", &width_height, &width_height);
 	image->pill = mlx_xpm_file_to_image(\
 		game->mlx, "./resources/pill.xpm", &width_height, &width_height);
+	image->door = mlx_xpm_file_to_image(\
+		game->mlx, "./resources/door.xpm", &width_height, &width_height);
 	image->left = mlx_xpm_file_to_image(\
 		game->mlx, "./resources/left.xpm", &width_height, &width_height);
 	image->right = mlx_xpm_file_to_image(\
@@ -137,7 +139,7 @@ void _draw_map(t_game *game, char **map)
 			if (map[i][j] == 'C')
 				mlx_put_image_to_window(game->mlx, game->window, image->pill, j * 64, i * 64);
 			else if (map[i][j] == 'E')
-				mlx_put_image_to_window(game->mlx, game->window, image->floor, j * 64, i * 64);
+				mlx_put_image_to_window(game->mlx, game->window, image->door, j * 64, i * 64);
 			else if (map[i][j] == '1')
 				mlx_put_image_to_window(game->mlx, game->window, image->wall, j * 64, i * 64);
 			if (map[i][j] == 'P')

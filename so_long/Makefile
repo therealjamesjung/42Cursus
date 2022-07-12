@@ -6,7 +6,7 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/09 17:42:48 by jaekjung          #+#    #+#              #
-#    Updated: 2022/07/09 17:53:27 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/07/12 17:56:40 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,18 +17,18 @@ MLX = -lmlx -framework OpenGL -framework Appkit
 
 NAME = so_long
 
-SRCS =	so_long.c \
-		gnl/get_next_line.c \
-		gnl/get_next_line_utils.c \
+SRCS =	src/so_long.c \
+		lib/gnl/get_next_line.c \
+		lib/gnl/get_next_line_utils.c \
 
 OBJS = $(SRCS:%.c=%.o)
 
-PRINTF_DIR = ./ft_printf
+PRINTF_DIR = ./lib/ft_printf
 PRINTF_NAME = libftprintf
 PRINTF = $(PRINTF_DIR)/$(PRINTF_NAME).a
 
 
-LIBFT_DIR = ./libft
+LIBFT_DIR = ./lib/libft
 LIBFT_NAME = libft
 LIBFT = $(LIBFT_DIR)/$(LIBFT_NAME).a
 
