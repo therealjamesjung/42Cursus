@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:21:01 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/09 19:16:05 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/12 17:15:10 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ typedef struct s_game {
 
 typedef struct s_image {
 	void *wall;
-	void *space;
-	void *coin;
+	void *floor;
+	void *pill;
+	void *left;
+	void *right;
+	void *front;
+	void *back;
 } t_image;
 
 #endif

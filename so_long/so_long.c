@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:56:54 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/09 19:24:14 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/12 17:39:12 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	_init_game(t_game *game)
 	game->player_cnt = 0;
 	game->exit_cnt = 0;
 	game->pill_cnt = 0;
-	game->window = mlx_new_window(game->mlx, 1000, 1000, "mlx 42");
 }
 
-void	_end_game(t_game *game)
+void	_end_game(t_game *game, char *message)
 {
+	ft_printf("%s\n", message);
 	free(game);
 	game = NULL;
 	exit(0);
@@ -62,9 +62,8 @@ void	_validate_map(t_game *game, char **map)
 			if (((i == 0 || i == game->map_height - 1) && map[i][j] != '1') || \
 			((j == 0 || j == game->map_width - 1) && map[i][j] != '1'))
 			{
-				ft_printf("Map must be surrounded by walls.");
-				free(map);
-				_end_game(game);
+				free(map); // TODO free map
+				_end_game(game, "Map must be surrounded by walls.");
 			}
 		}
 	}
@@ -87,15 +86,64 @@ char	**_init_map(t_game *game, char *file_path)
 			game->map_width = (int) ft_strlen(tmp) - 1;
 		else if (!_validate_width(game->map_width, tmp))
 		{
-			ft_printf("Invalid map.");
 			free(map);
-			map = NULL;
-			_end_game(game);
+			_end_game(game, "Invalid map.");
 		}		
 		map = ft_strjoin(map, tmp);
 		game->map_height++;
 	}
 	return (ft_split(map, '\n'));
+}
+
+
+void _init_image(t_game *game, t_image *image)
+{
+	int		width_height;
+	
+	width_height = 64;
+	image->wall = mlx_xpm_file_to_image(\
+		game->mlx, "./resources/wall.xpm", &width_height, &width_height);
+	image->floor = mlx_xpm_file_to_image(\
+		game->mlx, "./resources/floor.xpm", &width_height, &width_height);
+	image->pill = mlx_xpm_file_to_image(\
+		game->mlx, "./resources/pill.xpm", &width_height, &width_height);
+	image->left = mlx_xpm_file_to_image(\
+		game->mlx, "./resources/left.xpm", &width_height, &width_height);
+	image->right = mlx_xpm_file_to_image(\
+		game->mlx, "./resources/right.xpm", &width_height, &width_height);
+	image->front = mlx_xpm_file_to_image(\
+		game->mlx, "./resources/front.xpm", &width_height, &width_height);
+	image->back = mlx_xpm_file_to_image(\
+		game->mlx, "./resources/back.xpm", &width_height, &width_height);
+}
+
+void _draw_map(t_game *game, char **map)
+{
+	int		i;
+	int		j;
+	t_image	*image;
+
+	game->window = mlx_new_window(game->mlx, 64 * game->map_width, 64 * game->map_height, "so_long");
+	image = (t_image *)malloc(sizeof(t_image));
+	_init_image(game, image);
+	i = -1;
+	j = -1;
+	while (++i < game->map_height)
+	{
+		j = -1;
+		while (++j < game->map_width)
+		{ // P C E 1 0
+			mlx_put_image_to_window(game->mlx, game->window, image->floor, j * 64, i * 64);
+			if (map[i][j] == 'C')
+				mlx_put_image_to_window(game->mlx, game->window, image->pill, j * 64, i * 64);
+			else if (map[i][j] == 'E')
+				mlx_put_image_to_window(game->mlx, game->window, image->floor, j * 64, i * 64);
+			else if (map[i][j] == '1')
+				mlx_put_image_to_window(game->mlx, game->window, image->wall, j * 64, i * 64);
+			if (map[i][j] == 'P')
+				mlx_put_image_to_window(game->mlx, game->window, image->front, j * 64, i * 64);
+		}
+	}
 }
 
 int	main(int argc, char **argv)
@@ -116,5 +164,6 @@ int	main(int argc, char **argv)
 	ft_printf("height: %d ", game->map_height);
 	ft_printf("width: %d\n", game->map_width);
 	_validate_map(game, map);
+	_draw_map(game, map);
 	mlx_loop(game->mlx);
 }
