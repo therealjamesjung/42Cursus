@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:56:54 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/12 17:46:35 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/13 19:52:43 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	_init_game(t_game *game)
 {
 	game->mlx = mlx_init();
+	game->window = 0;
 	game->map_width = 0;
 	game->map_height = 0;
 	game->player_cnt = 0;
@@ -25,6 +26,8 @@ void	_init_game(t_game *game)
 void	_end_game(t_game *game, char *message)
 {
 	ft_printf("%s\n", message);
+	if (game->window)
+		mlx_destroy_window(game->mlx, game->window);
 	free(game);
 	game = NULL;
 	exit(0);
@@ -42,7 +45,7 @@ int	_validate_width(int map_width, char *tmp)
 	return (1);
 }
 
-void	_validate_map(t_game *game, char **map)
+void	_validate_map(t_game *game)
 {
 	int	i;
 	int	j;
@@ -53,30 +56,30 @@ void	_validate_map(t_game *game, char **map)
 		j = -1;
 		while (++j < game->map_width)
 		{
-			if (map[i][j] == 'P')
+			if (game->map[i][j] == 'P')
 				game->player_cnt++;
-			else if (map[i][j] == 'C')
+			else if (game->map[i][j] == 'C')
 				game->pill_cnt++;
-			else if (map[i][j] == 'E')
+			else if (game->map[i][j] == 'E')
 				game->exit_cnt++;
-			if (((i == 0 || i == game->map_height - 1) && map[i][j] != '1') || \
-			((j == 0 || j == game->map_width - 1) && map[i][j] != '1'))
+			if (((i == 0 || i == game->map_height - 1) && game->map[i][j] != '1') || \
+			((j == 0 || j == game->map_width - 1) && game->map[i][j] != '1'))
 			{
-				free(map); // TODO free map
+				free(game->map); // TODO free map
 				_end_game(game, "Map must be surrounded by walls.");
 			}
 		}
 	}
 }
 
-char	**_init_map(t_game *game, char *file_path)
+void	_init_map(t_game *game, char *file_path)
 {
 	int		fd;
-	char	*map;
+	char	*input_map;
 	char	*tmp;
 
 	fd = open(file_path, O_RDONLY);
-	map = 0;
+	input_map = 0;
 	while (1)
 	{
 		tmp = get_next_line(fd);
@@ -86,15 +89,14 @@ char	**_init_map(t_game *game, char *file_path)
 			game->map_width = (int) ft_strlen(tmp) - 1;
 		else if (!_validate_width(game->map_width, tmp))
 		{
-			free(map);
+			free(input_map);
 			_end_game(game, "Invalid map.");
 		}		
-		map = ft_strjoin(map, tmp);
+		input_map = ft_strjoin(input_map, tmp);
 		game->map_height++;
 	}
-	return (ft_split(map, '\n'));
+	game->map = ft_split(input_map, '\n');
 }
-
 
 void _init_image(t_game *game, t_image *image)
 {
@@ -102,24 +104,24 @@ void _init_image(t_game *game, t_image *image)
 	
 	width_height = 64;
 	image->wall = mlx_xpm_file_to_image(\
-		game->mlx, "./resources/wall.xpm", &width_height, &width_height);
+		game->mlx, "./res/wall.xpm", &width_height, &width_height);
 	image->floor = mlx_xpm_file_to_image(\
-		game->mlx, "./resources/floor.xpm", &width_height, &width_height);
+		game->mlx, "./res/floor.xpm", &width_height, &width_height);
 	image->pill = mlx_xpm_file_to_image(\
-		game->mlx, "./resources/pill.xpm", &width_height, &width_height);
+		game->mlx, "./res/pill.xpm", &width_height, &width_height);
 	image->door = mlx_xpm_file_to_image(\
-		game->mlx, "./resources/door.xpm", &width_height, &width_height);
+		game->mlx, "./res/door.xpm", &width_height, &width_height);
 	image->left = mlx_xpm_file_to_image(\
-		game->mlx, "./resources/left.xpm", &width_height, &width_height);
+		game->mlx, "./res/left.xpm", &width_height, &width_height);
 	image->right = mlx_xpm_file_to_image(\
-		game->mlx, "./resources/right.xpm", &width_height, &width_height);
+		game->mlx, "./res/right.xpm", &width_height, &width_height);
 	image->front = mlx_xpm_file_to_image(\
-		game->mlx, "./resources/front.xpm", &width_height, &width_height);
+		game->mlx, "./res/front.xpm", &width_height, &width_height);
 	image->back = mlx_xpm_file_to_image(\
-		game->mlx, "./resources/back.xpm", &width_height, &width_height);
+		game->mlx, "./res/back.xpm", &width_height, &width_height);
 }
 
-void _draw_map(t_game *game, char **map)
+void _draw_map(t_game *game)
 {
 	int		i;
 	int		j;
@@ -129,43 +131,79 @@ void _draw_map(t_game *game, char **map)
 	image = (t_image *)malloc(sizeof(t_image));
 	_init_image(game, image);
 	i = -1;
-	j = -1;
 	while (++i < game->map_height)
 	{
 		j = -1;
 		while (++j < game->map_width)
-		{ // P C E 1 0
+		{
 			mlx_put_image_to_window(game->mlx, game->window, image->floor, j * 64, i * 64);
-			if (map[i][j] == 'C')
+			if (game->map[i][j] == 'C')
 				mlx_put_image_to_window(game->mlx, game->window, image->pill, j * 64, i * 64);
-			else if (map[i][j] == 'E')
+			else if (game->map[i][j] == 'E')
 				mlx_put_image_to_window(game->mlx, game->window, image->door, j * 64, i * 64);
-			else if (map[i][j] == '1')
+			else if (game->map[i][j] == '1')
 				mlx_put_image_to_window(game->mlx, game->window, image->wall, j * 64, i * 64);
-			if (map[i][j] == 'P')
+			if (game->map[i][j] == 'P')
 				mlx_put_image_to_window(game->mlx, game->window, image->front, j * 64, i * 64);
 		}
 	}
 }
 
+int	_exit_event_handler(t_game *game)
+{
+	_end_game(game, "Game Over.");
+	return (0);
+}
+
+void	move_d(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	ft_printf("aa");
+	while(++i < game->map_height)
+	{
+		j = -1;
+		while(++j < game->map_width)
+			if (game->map[i][j] == 'P')
+			{
+				game->map[i][j] = '0';
+				game->map[i][j + 1] = 'P';
+				_draw_map(game);
+				break;
+			}
+	}
+}
+
+int	_key_event_handler(int key_code, t_game *game)
+{
+	ft_printf("asdfasdf");
+	if (key_code == KEY_ESCAPE)
+		_exit_event_handler(game);
+	if (key_code == KEY_W)
+		;//move_w(game);
+	if (key_code == KEY_A)
+		;//move_a(game);
+	if (key_code == KEY_S)
+		;//move_s(game);
+	if (key_code == KEY_D)
+		move_d(game);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-	char	**map;
 
-	if (argc != 2)
-	{
-		ft_printf("Argument count must be 2. ex) ./a.out map.ber");
-		return (0);
-	}
 	game = (t_game *)malloc(sizeof(t_game));
 	_init_game(game);
-	map = _init_map(game, argv[1]);
-	for (int i=0; i<game->map_height; i++)
-		ft_printf("%s\n",map[i]);
-	ft_printf("height: %d ", game->map_height);
-	ft_printf("width: %d\n", game->map_width);
-	_validate_map(game, map);
-	_draw_map(game, map);
+	if (argc != 2)
+		_end_game(game, "Argument count must be 2. ex) ./a.out map.ber");
+	_init_map(game, argv[1]);
+	_validate_map(game);
+	_draw_map(game);
+	mlx_hook(game->window, MLX_EVENT_KEY_PRESS, 0, &_key_event_handler, game);
+	mlx_hook(game->window, MLX_EVENT_KEY_EXIT, 0, &_exit_event_handler, game);
 	mlx_loop(game->mlx);
 }
