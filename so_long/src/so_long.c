@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 15:56:54 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/13 19:52:43 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/13 20:38:40 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	_init_map(t_game *game, char *file_path)
 		game->map_height++;
 	}
 	game->map = ft_split(input_map, '\n');
+	_validate_map(game);
 }
 
 void _init_image(t_game *game, t_image *image)
@@ -127,7 +128,6 @@ void _draw_map(t_game *game)
 	int		j;
 	t_image	*image;
 
-	game->window = mlx_new_window(game->mlx, 64 * game->map_width, 64 * game->map_height, "so_long");
 	image = (t_image *)malloc(sizeof(t_image));
 	_init_image(game, image);
 	i = -1;
@@ -155,18 +155,77 @@ int	_exit_event_handler(t_game *game)
 	return (0);
 }
 
-void	move_d(t_game *game)
+void	_move_up(t_game *game)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	ft_printf("aa");
 	while(++i < game->map_height)
 	{
 		j = -1;
 		while(++j < game->map_width)
-			if (game->map[i][j] == 'P')
+			if (game->map[i][j] == 'P' && game->map[i - 1][j] != '1')
+			{
+				game->map[i][j] = '0';
+				game->map[i - 1][j] = 'P';
+				_draw_map(game);
+				break;
+			}
+	}
+}
+
+void	_move_down(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while(++i < game->map_height)
+	{
+		j = -1;
+		while(++j < game->map_width)
+			if (game->map[i][j] == 'P' && game->map[i + 1][j] != '1')
+			{
+				game->map[i][j] = '0';
+				game->map[i + 1][j] = 'P';
+				_draw_map(game);
+				break;
+			}
+	}
+}
+
+void	_move_left(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while(++i < game->map_height)
+	{
+		j = -1;
+		while(++j < game->map_width)
+			if (game->map[i][j] == 'P' && game->map[i][j - 1] != '1')
+			{
+				game->map[i][j] = '0';
+				game->map[i][j - 1] = 'P';
+				_draw_map(game);
+				break;
+			}
+	}
+}
+
+void	_move_right(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while(++i < game->map_height)
+	{
+		j = -1;
+		while(++j < game->map_width)
+			if (game->map[i][j] == 'P' && game->map[i][j + 1] != '1')
 			{
 				game->map[i][j] = '0';
 				game->map[i][j + 1] = 'P';
@@ -178,17 +237,17 @@ void	move_d(t_game *game)
 
 int	_key_event_handler(int key_code, t_game *game)
 {
-	ft_printf("asdfasdf");
+	ft_printf("asdfasdf\n");
 	if (key_code == KEY_ESCAPE)
 		_exit_event_handler(game);
 	if (key_code == KEY_W)
-		;//move_w(game);
+		_move_up(game);
 	if (key_code == KEY_A)
-		;//move_a(game);
+		_move_left(game);
 	if (key_code == KEY_S)
-		;//move_s(game);
+		_move_down(game);
 	if (key_code == KEY_D)
-		move_d(game);
+		_move_right(game);
 	return (0);
 }
 
@@ -201,7 +260,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		_end_game(game, "Argument count must be 2. ex) ./a.out map.ber");
 	_init_map(game, argv[1]);
-	_validate_map(game);
+	game->window = mlx_new_window(game->mlx, 64 * game->map_width, 64 * game->map_height, "so_long");
 	_draw_map(game);
 	mlx_hook(game->window, MLX_EVENT_KEY_PRESS, 0, &_key_event_handler, game);
 	mlx_hook(game->window, MLX_EVENT_KEY_EXIT, 0, &_exit_event_handler, game);
