@@ -6,92 +6,62 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:02:34 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 13:23:48 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:46:04 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	_move_up(t_game *game)
+int	_move_player(t_game *game, t_point prev, t_point next)
 {
-	int	i;
-	int	j;
-
-	i = -1;
-	while(++i < game->map_height)
+	if (game->map[prev.x][prev.y] == 'P' && game->map[next.x][next.y] != '1')
 	{
-		j = -1;
-		while(++j < game->map_width)
-			if (game->map[i][j] == 'P' && game->map[i - 1][j] != '1')
+		if (game->map[next.x][next.y] == 'E')
+		{
+			if (game->pill_cnt != 0)
 			{
-				game->map[i][j] = '0';
-				game->map[i - 1][j] = 'P';
-				game->move_cnt++;
-				_draw_map(game);
-				break;
+				ft_printf("You should collect all pills\n");
+				return (0);
 			}
+			_end_game(game, "Game Over");
+		}
+		game->move_cnt++;
+		ft_printf("Movement count: %d\n", game->move_cnt);
+		if (game->map[next.x][next.y] == 'C')
+			game->pill_cnt--;
+		game->map[prev.x][prev.y] = '0';
+		game->map[next.x][next.y] = 'P';
+		_draw_map(game);
+		return (1);
 	}
+	return (0);
 }
 
-void	_move_down(t_game *game)
+void	_move(t_game *game, char direction)
 {
-	int	i;
-	int	j;
+	t_point	iter;
+	t_point	prev;
+	t_point	next;
 
-	i = -1;
-	while(++i < game->map_height)
+	iter.x = -1;
+	while (++iter.x < game->map_height)
 	{
-		j = -1;
-		while(++j < game->map_width)
-			if (game->map[i][j] == 'P' && game->map[i + 1][j] != '1')
-			{
-				game->map[i][j] = '0';
-				game->map[i + 1][j] = 'P';
-				game->move_cnt++;
-				_draw_map(game);
-				break;
-			}
-	}
-}
-
-void	_move_left(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while(++i < game->map_height)
-	{
-		j = -1;
-		while(++j < game->map_width)
-			if (game->map[i][j] == 'P' && game->map[i][j - 1] != '1')
-			{
-				game->map[i][j] = '0';
-				game->map[i][j - 1] = 'P';
-				game->move_cnt++;
-				_draw_map(game);
-				break;
-			}
-	}
-}
-
-void	_move_right(t_game *game)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	while(++i < game->map_height)
-	{
-		j = -1;
-		while(++j < game->map_width)
-			if (game->map[i][j] == 'P' && game->map[i][j + 1] != '1')
-			{
-				game->map[i][j] = '0';
-				game->map[i][j + 1] = 'P';
-				game->move_cnt++;
-				_draw_map(game);
-				break;
-			}
+		iter.y = -1;
+		while (++iter.y < game->map_width)
+		{
+			prev = _init_point(iter.x, iter.y);
+			next = _init_point(iter.x, iter.y);
+			game->direction = direction;
+			if (direction == 'U')
+				next.x = iter.x - 1;
+			else if (direction == 'D')
+				next.x = iter.x + 1;
+			else if (direction == 'L')
+				next.y = iter.y - 1;
+			else if (direction == 'R')
+				next.y = iter.y + 1;
+			if (_move_player(game, prev, next))
+				return ;
+		}	
 	}
 }

@@ -6,13 +6,13 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/09 17:42:48 by jaekjung          #+#    #+#              #
-#    Updated: 2022/07/15 13:22:56 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/07/15 16:21:05 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 MLX = -lmlx -framework OpenGL -framework Appkit
 
 NAME = so_long
@@ -40,8 +40,6 @@ LIBFT = $(LIBFT_DIR)/$(LIBFT_NAME).a
 
 
 all: $(NAME)
-
-bonus: $(BONUS_NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 	$(CC) $(CFLAGS) $(MLX) -o $@ $^

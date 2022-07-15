@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 12:57:32 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 13:11:30 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:54:35 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,20 @@ int	_validate_width(int map_width, char *tmp)
 	if (len != map_width)
 		return (0);
 	return (1);
+}
+
+t_point	_init_point(int x, int y)
+{
+	t_point	point;
+
+	point.x = x;
+	point.y = y;
+	return (point);
+}
+
+void	_free_input(char *input, int fd)
+{
+	free(input);
+	input = 0;
+	close(fd);
 }

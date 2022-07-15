@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 12:54:25 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 13:22:43 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/15 17:51:03 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,16 @@ void	_validate_map(t_game *game)
 				game->pill_cnt++;
 			else if (game->map[i][j] == 'E')
 				game->exit_cnt++;
-			if (((i == 0 || i == game->map_height - 1) && game->map[i][j] != '1') || \
-			((j == 0 || j == game->map_width - 1) && game->map[i][j] != '1'))
-			{
-				free(game->map); // TODO free map
-				_end_game(game, "Map must be surrounded by walls.");
-			}
+			if ((i == 0 || i == game->map_height - 1) && game->map[i][j] != '1')
+				_end_game(game, "Error\nMap must be surrounded by walls.");
+			if ((j == 0 || j == game->map_width - 1) && game->map[i][j] != '1')
+				_end_game(game, "Error\nMap must be surrounded by walls.");
 		}
 	}
+	if (game->player_cnt != 1)
+		_end_game(game, "Error\nInvalid player count");
+	if (game->exit_cnt != 1)
+		_end_game(game, "Error\nInvalid exit count");
 }
 
 void	_init_map(t_game *game, char *file_path)
@@ -46,24 +48,56 @@ void	_init_map(t_game *game, char *file_path)
 	char	*tmp;
 
 	fd = open(file_path, O_RDONLY);
+	if (fd < 0)
+		_end_game(game, "Error\nInvalid input file");
 	input_map = 0;
 	while (1)
 	{
 		tmp = get_next_line(fd);
 		if (!tmp)
 			break ;
+		free(input_map);
 		if (!game->map_width)
 			game->map_width = (int) ft_strlen(tmp) - 1;
 		else if (!_validate_width(game->map_width, tmp))
-		{
-			free(input_map);
-			_end_game(game, "Invalid map.");
-		}		
+			_end_game(game, "Error\nInvalid map");
 		input_map = ft_strjoin(input_map, tmp);
+		free(tmp);
+		tmp = 0;
 		game->map_height++;
 	}
 	game->map = ft_split(input_map, '\n');
-	_validate_map(game);
+	_free_input(input_map, fd);
+}
+
+void	_set_player(t_game *game, t_image *image, int x, int y)
+{
+	if (game->direction == 'U')
+		_set_image(game, image->back, x, y);
+	if (game->direction == 'D')
+		_set_image(game, image->front, x, y);
+	if (game->direction == 'L')
+		_set_image(game, image->left, x, y);
+	if (game->direction == 'R')
+		_set_image(game, image->right, x, y);
+}
+
+void	_set_map(t_game *game, t_image *image, int i, int j)
+{
+	_set_image(game, image->floor, j * 64, i * 64);
+	if (game->map[i][j] == 'C')
+		_set_image(game, image->pill, j * 64, i * 64);
+	else if (game->map[i][j] == 'E')
+		_set_image(game, image->door, j * 64, i * 64);
+	else if (game->map[i][j] == '1')
+		_set_image(game, image->wall, j * 64, i * 64);
+	else if (game->map[i][j] == 'P')
+		_set_player(game, image, j * 64, i * 64);
+	else if (game->map[i][j] != '0')
+	{
+		free(image);
+		_end_game(game, "Error\nMap is not consisted of 0,1,C,E,P");
+	}
 }
 
 void	_draw_map(t_game *game)
@@ -79,16 +113,8 @@ void	_draw_map(t_game *game)
 	{
 		j = -1;
 		while (++j < game->map_width)
-		{
-			_set_image(game, image->floor, j * 64, i * 64);
-			if (game->map[i][j] == 'C')
-				_set_image(game, image->pill, j * 64, i * 64);
-			else if (game->map[i][j] == 'E')
-				_set_image(game, image->door, j * 64, i * 64);
-			else if (game->map[i][j] == '1')
-				_set_image(game, image->wall, j * 64, i * 64);
-			if (game->map[i][j] == 'P')
-				_set_image(game, image->front, j * 64, i * 64);
-		}
+			_set_map(game, image, i, j);
 	}
+	free(image);
+	image = 0;
 }

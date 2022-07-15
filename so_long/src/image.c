@@ -6,17 +6,16 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:22:32 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 13:22:44 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/15 15:39:10 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-
 void	_init_image(t_game *game, t_image *image)
 {
 	int		width_height;
-	
+
 	width_height = 64;
 	image->wall = mlx_xpm_file_to_image(\
 		game->mlx, "./res/wall.xpm", &width_height, &width_height);
