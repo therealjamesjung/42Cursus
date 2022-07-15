@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:21:01 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/13 19:52:44 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/15 13:23:13 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_game {
 	int player_cnt;
 	int exit_cnt;
 	int pill_cnt;
+	int	move_cnt;
 } t_game;
 
 typedef struct s_image {
@@ -56,4 +57,18 @@ typedef struct s_image {
 	void *back;
 } t_image;
 
+int		_validate_width(int map_width, char *tmp);
+void	_validate_map(t_game *game);
+void	_init_map(t_game *game, char *file_path);
+void	_init_image(t_game *game, t_image *image);
+void	_set_image(t_game *game, void *image, int x, int y);
+void	_draw_map(t_game *game);
+void	_init_game(t_game *game);
+void	_end_game(t_game *game, char *message);
+int		_exit_event_handler(t_game *game);
+int		_key_event_handler(int key_code, t_game *game);
+void	_move_up(t_game *game);
+void	_move_down(t_game *game);
+void	_move_left(t_game *game);
+void	_move_right(t_game *game);
 #endif

@@ -6,7 +6,7 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/09 17:42:48 by jaekjung          #+#    #+#              #
-#    Updated: 2022/07/13 16:20:36 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/07/15 13:22:56 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,13 @@ MLX = -lmlx -framework OpenGL -framework Appkit
 
 NAME = so_long
 
-SRCS =	src/so_long.c \
+SRCS =	src/main.c \
+		src/event.c \
+		src/game.c \
+		src/map.c \
+		src/image.c \
+		src/movement.c \
+		src/utils.c \
 		lib/gnl/get_next_line.c \
 		lib/gnl/get_next_line_utils.c \
 
