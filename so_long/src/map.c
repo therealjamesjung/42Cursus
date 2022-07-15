@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 12:54:25 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 17:51:03 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/15 20:00:47 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	_validate_map(t_game *game)
 {
 	int	i;
 	int	j;
+
 
 	i = -1;
 	while (++i < game->map_height)
@@ -45,28 +46,17 @@ void	_init_map(t_game *game, char *file_path)
 {
 	int		fd;
 	char	*input_map;
-	char	*tmp;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		_end_game(game, "Error\nInvalid input file");
-	input_map = 0;
-	while (1)
-	{
-		tmp = get_next_line(fd);
-		if (!tmp)
-			break ;
-		free(input_map);
-		if (!game->map_width)
-			game->map_width = (int) ft_strlen(tmp) - 1;
-		else if (!_validate_width(game->map_width, tmp))
-			_end_game(game, "Error\nInvalid map");
-		input_map = ft_strjoin(input_map, tmp);
-		free(tmp);
-		tmp = 0;
-		game->map_height++;
-	}
+	input_map = (char *)malloc(sizeof(char) * 10000000);
+	read(fd, input_map, 10000000);
+	game->map_height = _count_char(input_map, '\n') + 1;
 	game->map = ft_split(input_map, '\n');
+	_validate_width(game);
+	ft_printf("%d %d\n", game->map_height, game->map_width);
+	ft_printf("%s", input_map);
 	_free_input(input_map, fd);
 }
 
