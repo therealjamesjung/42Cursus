@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/09 16:21:01 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 19:58:43 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/18 16:02:18 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ typedef struct s_image {
 	void	*back;
 }	t_image;
 
-void	_validate_width(t_game *game);
+int		_validate_width(int map_width, char *tmp);
 t_point	_init_point(int x, int y);
 void	_free_input(char *input, int fd);
 int		_count_char(char *str, char c);
-
+char	*_join(char *input, const char *tmp);
 
 void	_validate_map(t_game *game);
 void	_init_map(t_game *game, char *file_path);

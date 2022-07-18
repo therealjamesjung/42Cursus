@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 12:54:25 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 20:00:47 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/18 16:15:18 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	_validate_map(t_game *game)
 {
 	int	i;
 	int	j;
-
 
 	i = -1;
 	while (++i < game->map_height)
@@ -36,27 +35,35 @@ void	_validate_map(t_game *game)
 				_end_game(game, "Error\nMap must be surrounded by walls.");
 		}
 	}
-	if (game->player_cnt != 1)
-		_end_game(game, "Error\nInvalid player count");
-	if (game->exit_cnt != 1)
-		_end_game(game, "Error\nInvalid exit count");
+	if (game->player_cnt != 1 || game->exit_cnt != 1 || game->pill_cnt < 1)
+		_end_game(game, \
+			"Error\nValid map must have 1 player, 1 exit and at least 1 pill");
 }
 
 void	_init_map(t_game *game, char *file_path)
 {
 	int		fd;
 	char	*input_map;
+	char	*tmp;
 
 	fd = open(file_path, O_RDONLY);
 	if (fd < 0)
 		_end_game(game, "Error\nInvalid input file");
-	input_map = (char *)malloc(sizeof(char) * 10000000);
-	read(fd, input_map, 10000000);
-	game->map_height = _count_char(input_map, '\n') + 1;
+	input_map = 0;
+	tmp = get_next_line(fd);
+	if (!tmp)
+		_end_game(game, "Empty File");
+	game->map_width = (int) ft_strlen(tmp) - 1;
+	while (tmp)
+	{	
+		if (!_validate_width(game->map_width, tmp))
+			_end_game(game, "Error\nInvalid map");
+		input_map = _join(input_map, tmp);
+		free(tmp);
+		tmp = get_next_line(fd);
+		game->map_height++;
+	}
 	game->map = ft_split(input_map, '\n');
-	_validate_width(game);
-	ft_printf("%d %d\n", game->map_height, game->map_width);
-	ft_printf("%s", input_map);
 	_free_input(input_map, fd);
 }
 
@@ -95,6 +102,7 @@ void	_draw_map(t_game *game)
 	int		i;
 	int		j;
 	t_image	*image;
+	char	*move_cnt;
 
 	image = (t_image *)malloc(sizeof(t_image));
 	_init_image(game, image);
@@ -105,6 +113,10 @@ void	_draw_map(t_game *game)
 		while (++j < game->map_width)
 			_set_map(game, image, i, j);
 	}
+	move_cnt = ft_itoa(game->move_cnt);
+	mlx_string_put(game->mlx, game->window, 4, 4, 0, move_cnt);
 	free(image);
+	free(move_cnt);
 	image = 0;
+	move_cnt = 0;
 }

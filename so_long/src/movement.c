@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 13:02:34 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 17:46:04 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/18 16:02:30 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	_move_player(t_game *game, t_point prev, t_point next)
 			_end_game(game, "Game Over");
 		}
 		game->move_cnt++;
-		ft_printf("Movement count: %d\n", game->move_cnt);
 		if (game->map[next.x][next.y] == 'C')
 			game->pill_cnt--;
 		game->map[prev.x][prev.y] = '0';

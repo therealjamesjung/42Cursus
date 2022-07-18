@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/15 12:58:37 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/15 17:54:47 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/18 16:12:45 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	_end_game(t_game *game, char *message)
 	}
 	if (game->window)
 		mlx_destroy_window(game->mlx, game->window);
+	system("leaks so_long");
 	exit(0);
 }
