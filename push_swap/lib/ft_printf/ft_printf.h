@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 17:01:17 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/20 17:14:16 by jaekjung         ###   ########.fr       */
+/*   Created: 2022/04/20 20:00:53 by jaekjung          #+#    #+#             */
+/*   Updated: 2022/05/07 16:14:18 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-#ifndef PUSHSWAP_H
-# define PUSHSWAP_H
-
-# include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
-# include "./lib/libft/libft.h"
-# include "./lib/ft_printf/ft_printf.h"
+# include <stdarg.h>
+# include <stdlib.h>
 
-typedef struct s_node
-{
-    struct s_node   *next;
-    int             data;
-}   t_node;
+int		ft_printf(const char *format, ...);
+size_t	ft_strlen(const char *str);
+int		print_s(va_list *ap);
+int		print_c(va_list *ap);
+int		print_i(va_list *ap);
+int		print_u(va_list *ap);
+int		print_p(va_list *ap);
+int		print_x(va_list *ap, int mode);
+char	*_itoa(long n);
 
 #endif

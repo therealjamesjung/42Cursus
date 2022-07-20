@@ -5,54 +5,39 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/07/20 17:00:59 by jaekjung          #+#    #+#              #
-#    Updated: 2022/07/20 17:13:12 by jaekjung         ###   ########.fr        #
+#    Created: 2022/04/20 15:32:01 by jaekjung          #+#    #+#              #
+#    Updated: 2022/05/07 14:35:17 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-
-NAME = push_swap
-
-SRCS =	main.c
-
+SRCS =	ft_printf.c \
+		format/print_c.c \
+		format/print_i.c \
+		format/print_p.c \
+		format/print_s.c \
+		format/print_x.c \
+		format/utils.c
 OBJS = $(SRCS:%.c=%.o)
+NAME = libftprintf.a
 
-PRINTF_DIR = ./lib/ft_printf
-PRINTF_NAME = libftprintf
-PRINTF = $(PRINTF_DIR)/$(PRINTF_NAME).a
-
-
-LIBFT_DIR = ./lib/libft
-LIBFT_NAME = libft
-LIBFT = $(LIBFT_DIR)/$(LIBFT_NAME).a
-
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) -o $@ $^
-
-$(LIBFT):
-	make -C $(LIBFT_DIR)
-
-$(PRINTF):
-	make -C $(PRINTF_DIR)
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
 clean:
 	rm -f $(OBJS)
-	make -C $(LIBFT_DIR) clean
-	make -C $(PRINTF_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C $(LIBFT_DIR) fclean
-	make -C $(PRINTF_DIR) fclean
 
 re:
-	make fclean
-	make all
+	$(MAKE) fclean
+	$(MAKE) all
 
 .PHONY: fclean all clean re
