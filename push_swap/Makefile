@@ -6,7 +6,7 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 17:00:59 by jaekjung          #+#    #+#              #
-#    Updated: 2022/07/20 17:13:12 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/07/20 17:57:50 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 NAME = push_swap
 
-SRCS =	main.c
+SRCS =	src/main.c
 
 OBJS = $(SRCS:%.c=%.o)
 
