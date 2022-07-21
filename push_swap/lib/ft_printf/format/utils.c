@@ -6,21 +6,11 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:08:17 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/05/07 15:58:59 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/09 18:02:09 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	index;
-
-	index = 0;
-	while (str[index] != '\0')
-		index++;
-	return (index);
-}
 
 static int	_abs(int n)
 {
