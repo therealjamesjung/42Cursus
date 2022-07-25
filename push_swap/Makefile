@@ -6,7 +6,7 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 17:00:59 by jaekjung          #+#    #+#              #
-#    Updated: 2022/07/21 20:05:00 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/07/25 23:42:44 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,10 @@ NAME = push_swap
 
 SRCS =	src/main.c \
 		src/sort.c \
+		src/utils/sort_utils.c \
+		src/utils/stack_utils.c \
+		src/utils/parse_utils.c \
+		src/utils/rotate_utils.c \
 		src/operation/base.c \
 		src/operation/push.c \
 		src/operation/rotate.c \
