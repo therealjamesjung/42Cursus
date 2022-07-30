@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 17:01:08 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/25 23:41:17 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/30 17:39:54 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	_validate_sorted(t_stack *stack)
 		tmp = tmp->next;
 	}
 	_free_stack(stack);
+	ft_printf("Error\n");
 	exit(1);
 }
 
@@ -32,7 +33,8 @@ int	main(int argc, char **argv)
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
-	(void) argc;
+	if (argc == 1)
+		return (0);
 	stack_a = _init_stack();
 	_parse_argv(argv, stack_a);
 	_check_duplicates(stack_a);

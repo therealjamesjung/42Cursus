@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:02:04 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/25 23:21:12 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/30 17:28:57 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	_parse_error(void)
 {
 	ft_printf("Error\n");
-	system("leaks push_swap");
 	exit(1);
 }
 

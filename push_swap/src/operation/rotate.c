@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:36:49 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/25 22:57:46 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/31 03:50:53 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,18 @@ void	_rev_rotate(t_stack *stack, char *msg)
 	stack->head = tmp;
 }
 
-void	_rr(t_stack *stack_a, t_stack *stack_b)
+void	_rr(t_stack *stack_a, t_stack *stack_b, char *msg)
 {
 	_rotate(stack_a, NULL);
 	_rotate(stack_b, NULL);
-	ft_printf("rr\n");
+	if (msg)
+		ft_printf("%s\n", msg);
 }
 
-void	_rrr(t_stack *stack_a, t_stack *stack_b)
+void	_rrr(t_stack *stack_a, t_stack *stack_b, char *msg)
 {
 	_rev_rotate(stack_a, NULL);
 	_rev_rotate(stack_b, NULL);
-	ft_printf("rrr\n");
+	if (msg)
+		ft_printf("%s\n", msg);
 }

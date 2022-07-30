@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:30:48 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/25 23:42:33 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/31 03:53:11 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ void	_set_location_synced(t_stack *stack_a, t_stack *stack_b, \
 	{
 		if (a_rot > 0 && b_rot > 0)
 		{
-			_rr(stack_a, stack_b);
+			_rr(stack_a, stack_b, "rr");
 			a_rot--;
 			b_rot--;
 		}
 		else if (a_rot < 0 && b_rot < 0)
 		{
-			_rrr(stack_a, stack_b);
+			_rrr(stack_a, stack_b, "rrr");
 			a_rot++;
 			b_rot++;
 		}

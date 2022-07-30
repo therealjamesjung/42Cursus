@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 17:01:17 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/25 23:41:40 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/31 03:53:45 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <limits.h>
 # include "../lib/libft/libft.h"
 # include "../lib/ft_printf/ft_printf.h"
+# include "../lib/gnl/get_next_line.h"
 
 typedef struct s_node
 {
@@ -38,13 +39,14 @@ void	_push(t_stack *stack, t_node *node);
 void	_push_back(t_stack *stack, t_node *node);
 t_node	*_pop(t_stack *stack);
 void	_swap(t_stack *stack, char *msg);
-void	_pa(t_stack *stack_a, t_stack *stack_b);
-void	_pb(t_stack *stack_a, t_stack *stack_b);
+void	_ss(t_stack *stack_a, t_stack *stack_b, char *msg);
+void	_pa(t_stack *stack_a, t_stack *stack_b, char *msg);
+void	_pb(t_stack *stack_a, t_stack *stack_b, char *msg);
 void	_rotate(t_stack *stack, char *msg);
 void	_rev_rotate(t_stack *stack, char *msg);
 void	_sort(t_stack *stack_a, t_stack *stack_b);
-void	_rr(t_stack *stack_a, t_stack *stack_b);
-void	_rrr(t_stack *stack_a, t_stack *stack_b);
+void	_rr(t_stack *stack_a, t_stack *stack_b, char *msg);
+void	_rrr(t_stack *stack_a, t_stack *stack_b, char *msg);
 int		_sum(int a, int b);
 void	_sort_three(t_stack *stack);
 t_node	*_create_node(int n);
