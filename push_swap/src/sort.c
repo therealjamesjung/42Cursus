@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:26:21 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/31 16:56:55 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/31 17:04:13 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,21 @@ void	_insertion_sort(t_stack *stack_a, t_stack *stack_b)
 		a_rotation = 0;
 		b_rotation = 0;
 		_count_rotation(stack_a, stack_b, &a_rotation, &b_rotation);
+		// ft_printf("\nA:\n");
+		// t_node *tmp = stack_a->head;
+		// while (tmp)
+		// {
+		// 	ft_printf("%d ", tmp->data);
+		// 	tmp = tmp->next;
+		// }
+		// ft_printf("\nB:\n");
+		// tmp = stack_b->head;
+		// while (tmp)
+		// {
+		// 	ft_printf("%d ", tmp->data);
+		// 	tmp = tmp->next;
+		// }
+		// ft_printf("\na: %d b: %d\n", a_rotation, b_rotation);
 		_set_location(stack_a, stack_b, a_rotation, b_rotation);
 		_pa(stack_a, stack_b, "pa");
 	}
