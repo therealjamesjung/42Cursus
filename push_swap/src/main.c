@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 17:01:08 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/30 17:39:54 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/31 16:57:09 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,22 @@ void	_validate_sorted(t_stack *stack)
 		tmp = tmp->next;
 	}
 	_free_stack(stack);
-	ft_printf("Error\n");
 	exit(1);
+}
+
+void	_set_min_max(t_stack *stack)
+{
+	t_node	*tmp;
+
+	tmp = stack->head;
+	while (tmp)
+	{
+		if (tmp->data < stack->min)
+			stack->min = tmp->data;
+		if (tmp->data > stack->max)
+			stack->max = tmp->data;
+		tmp = tmp->next;
+	}
 }
 
 int	main(int argc, char **argv)
@@ -40,6 +54,8 @@ int	main(int argc, char **argv)
 	_check_duplicates(stack_a);
 	_validate_sorted(stack_a);
 	stack_b = _init_stack();
+	_set_min_max(stack_a);
+	_set_min_max(stack_b);
 	_sort(stack_a, stack_b);
 	_free_stack(stack_a);
 	_free_stack(stack_b);

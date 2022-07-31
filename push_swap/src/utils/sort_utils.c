@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 22:56:02 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/25 23:40:21 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/31 16:57:00 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	_iter_forward(t_stack *stack, int n)
 		tmp = tmp->next;
 		index++;
 	}
+	if (index >= (stack->len + 1) / 2)
+		index = index - stack->len;
 	return (index);
 }
 
@@ -79,5 +81,30 @@ int	_iter_backward(t_stack *stack, int n)
 		tmp = tmp->prev;
 		index--;
 	}
+	if (index * -1 >= (stack->len + 1) / 2)
+		index = index + stack->len;
 	return (index);
+}
+
+void	_divide(t_stack *stack_a, t_stack *stack_b)
+{
+	int	index;
+	int	pivot1;
+	int	pivot2;
+
+	pivot1 = (stack_a->min + stack_a->max) / 3;
+	pivot2 = (stack_a->min + stack_a->max) / 3 * 2;
+	index = -1;
+	while (++index < stack_a->len)
+	{
+		if (stack_a->head->data < pivot1)
+		{
+			_pb(stack_a, stack_b, "pb");
+			_rotate(stack_b, "rb");
+		}
+		else if (stack_a->head->data < pivot2)
+			_pb(stack_a, stack_b, "pb");
+		else
+			_rotate(stack_a, "ra");
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:00:45 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/25 23:11:35 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/31 15:58:30 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_stack	*_init_stack(void)
 	stack->head = NULL;
 	stack->tail = NULL;
 	stack->len = 0;
+	stack->min = INT_MAX;
+	stack->max = INT_MIN;
 	return (stack);
 }
 

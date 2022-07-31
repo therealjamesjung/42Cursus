@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 17:01:17 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/31 03:53:45 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/07/31 15:56:41 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_stack
 	t_node	*head;
 	t_node	*tail;
 	int		len;
+	int		min;
+	int		max;
 }	t_stack;
 
 void	_push(t_stack *stack, t_node *node);
@@ -60,8 +62,8 @@ void	_check_duplicates(t_stack *stack);
 int		_iter_backward(t_stack *stack, int n);
 int		_iter_forward(t_stack *stack, int n);
 void	_set_location_synced(t_stack *stack_a, \
-		t_stack *stack_b, int a_rot, int b_rot);
-void	_set_location_a(t_stack *stack_a, int a_rot);
-void	_set_location_b(t_stack *stack_b, int b_rot);
-
+		t_stack *stack_b, int *a_rot, int *b_rot);
+void	_set_location_a(t_stack *stack_a, int *a_rot);
+void	_set_location_b(t_stack *stack_b, int *b_rot);
+void	_divide(t_stack *stack_a, t_stack *stack_b);
 #endif
