@@ -6,7 +6,7 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 17:00:59 by jaekjung          #+#    #+#              #
-#    Updated: 2022/07/31 04:09:40 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/08/03 00:36:18 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ CHECKER = checker
 
 SRCS =	src/main.c \
 		src/sort.c \
+		src/utils/utils.c \
 		src/utils/sort_utils.c \
 		src/utils/stack_utils.c \
 		src/utils/parse_utils.c \
@@ -32,6 +33,7 @@ CHECKER_SRCS =	src/checker.c \
 				src/operation/base.c \
 				src/operation/push.c \
 				src/operation/rotate.c \
+				src/utils/utils.c \
 				src/utils/stack_utils.c \
 				src/utils/parse_utils.c \
 				src/utils/rotate_utils.c \

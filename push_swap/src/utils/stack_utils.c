@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:00:45 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/31 15:58:30 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/08/03 00:42:14 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,19 @@ void	_free_stack(t_stack *stack)
 		tmp = tmp->next;
 	}
 	free(stack);
+}
+
+void	_set_min_max(t_stack *stack)
+{
+	t_node	*tmp;
+
+	tmp = stack->head;
+	while (tmp)
+	{
+		if (tmp->data < stack->min)
+			stack->min = tmp->data;
+		if (tmp->data > stack->max)
+			stack->max = tmp->data;
+		tmp = tmp->next;
+	}
 }

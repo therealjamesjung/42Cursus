@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:26:21 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/31 17:04:13 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/08/03 00:42:02 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	_find_location(t_stack *stack, int n)
 {
-	if (n > stack->head->data)
+	if (n >= stack->head->data)
 		return (_iter_forward(stack, n));
 	else
 		return (_iter_backward(stack, n));
@@ -50,7 +50,7 @@ void	_set_location(t_stack *stack_a, t_stack *stack_b, int a_rot, int b_rot)
 	_set_location_b(stack_b, &b_rot);
 }
 
-void	_insertion_sort(t_stack *stack_a, t_stack *stack_b)
+void	_greedy_insertion_sort(t_stack *stack_a, t_stack *stack_b)
 {
 	int	a_rotation;
 	int	b_rotation;
@@ -58,32 +58,22 @@ void	_insertion_sort(t_stack *stack_a, t_stack *stack_b)
 	_divide(stack_a, stack_b);
 	while (stack_a->len > 3)
 		_pb(stack_a, stack_b, "pb");
-	_sort_three(stack_a);
+	if (stack_a->len == 2)
+	{
+		if (stack_a->head->data > stack_a->head->next->data)
+			_swap(stack_a, "sa");
+	}
+	else if (stack_a->len == 3)
+		_sort_three(stack_a);
 	while (stack_b->len)
 	{
 		a_rotation = 0;
 		b_rotation = 0;
 		_count_rotation(stack_a, stack_b, &a_rotation, &b_rotation);
-		// ft_printf("\nA:\n");
-		// t_node *tmp = stack_a->head;
-		// while (tmp)
-		// {
-		// 	ft_printf("%d ", tmp->data);
-		// 	tmp = tmp->next;
-		// }
-		// ft_printf("\nB:\n");
-		// tmp = stack_b->head;
-		// while (tmp)
-		// {
-		// 	ft_printf("%d ", tmp->data);
-		// 	tmp = tmp->next;
-		// }
-		// ft_printf("\na: %d b: %d\n", a_rotation, b_rotation);
 		_set_location(stack_a, stack_b, a_rotation, b_rotation);
 		_pa(stack_a, stack_b, "pa");
 	}
-	while (stack_a->tail->data < stack_a->head->data)
-		_rev_rotate(stack_a, "rra");
+	_rearrange(stack_a);
 }
 
 void	_sort(t_stack *stack_a, t_stack *stack_b)
@@ -96,5 +86,5 @@ void	_sort(t_stack *stack_a, t_stack *stack_b)
 	else if (stack_a->len == 3)
 		_sort_three(stack_a);
 	else
-		_insertion_sort(stack_a, stack_b);
+		_greedy_insertion_sort(stack_a, stack_b);
 }

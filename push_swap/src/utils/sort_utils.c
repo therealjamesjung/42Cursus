@@ -6,19 +6,39 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 22:56:02 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/31 16:57:00 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/08/03 00:42:08 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-int	_sum(int a, int b)
+void	_rearrange(t_stack *stack)
 {
-	if (a < 0)
-		a *= -1;
-	if (b < 0)
-		b *= -1;
-	return (a + b);
+	int		index;
+	t_node	*tmp;
+
+	index = 0;
+	tmp = stack->head;
+	while (tmp)
+	{
+		if (tmp->data == stack->min)
+		{
+			if (index > (stack->len + 1) / 2)
+			{
+				while (++index < stack->len + 1)
+					_rev_rotate(stack, "rra");
+				return ;
+			}
+			else
+			{
+				while (--index >= 0)
+					_rotate(stack, "ra");
+				return ;
+			}
+		}
+		tmp = tmp->next;
+		index++;
+	}
 }
 
 void	_sort_three(t_stack *stack)
@@ -94,8 +114,8 @@ void	_divide(t_stack *stack_a, t_stack *stack_b)
 
 	pivot1 = (stack_a->min + stack_a->max) / 3;
 	pivot2 = (stack_a->min + stack_a->max) / 3 * 2;
-	index = -1;
-	while (++index < stack_a->len)
+	index = stack_a->len + 1;
+	while (--index)
 	{
 		if (stack_a->head->data < pivot1)
 		{

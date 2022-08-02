@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 23:02:04 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/07/31 15:41:09 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/08/03 00:35:55 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,47 +16,6 @@ void	_parse_error(void)
 {
 	ft_printf("Error\n");
 	exit(1);
-}
-
-int	_atoi(const char *str)
-{
-	long long	result;
-	int			is_positive;
-
-	is_positive = 1;
-	result = 0;
-	while ((9 <= *str && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			is_positive = -1;
-		str++;
-	}
-	while (*str != 0 && '0' <= *str && *str <= '9')
-	{
-		result = result * 10 + (*str - '0');
-		str++;
-		if (result - 1 > INT_MAX)
-			_parse_error();
-	}
-	return ((int) result * is_positive);
-}
-
-void	_is_digit(char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-	{
-		if (!ft_isdigit(str[i]) && str[i] != '+' && str[i] != '-')
-			_parse_error();
-		if ((str[i] == '+' || str[i] == '-') && i != 0)
-			_parse_error();
-		if ((str[i] == '+' || str[i] == '-') && !ft_isdigit(str[i + 1]))
-			_parse_error();
-	}
 }
 
 void	_parse_argv(char **argv, t_stack *stack)
@@ -104,4 +63,19 @@ void	_check_duplicates(t_stack *stack)
 		}
 		i = i->next;
 	}
+}
+
+void	_validate_sorted(t_stack *stack)
+{
+	t_node	*tmp;
+
+	tmp = stack->head;
+	while (tmp && tmp->next)
+	{
+		if (tmp->data > tmp->next->data)
+			return ;
+		tmp = tmp->next;
+	}
+	_free_stack(stack);
+	exit(1);
 }
