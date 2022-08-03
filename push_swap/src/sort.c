@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 17:26:21 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/08/03 13:28:19 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:40:07 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	_greedy_insertion_sort(t_stack *stack_a, t_stack *stack_b)
 	int	a_rotation;
 	int	b_rotation;
 
-	if (stack_a->len > 10)
+	if (stack_a->len > 250)
 		_divide(stack_a, stack_b);
 	while (stack_a->len > 3)
 		_pb(stack_a, stack_b, "pb");
