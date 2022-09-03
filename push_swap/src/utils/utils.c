@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 00:34:34 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/08/03 00:35:22 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/08/03 11:38:01 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	_atoi(const char *str)
 	{
 		result = result * 10 + (*str - '0');
 		str++;
-		if (result - 1 > INT_MAX)
+		if (result - 1 > INT_MAX || \
+			(is_positive > 0 && result > INT_MAX))
 			_parse_error();
 	}
 	return ((int) result * is_positive);
