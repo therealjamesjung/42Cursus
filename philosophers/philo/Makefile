@@ -6,18 +6,20 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 21:17:11 by jaekjung          #+#    #+#              #
-#    Updated: 2022/09/04 17:27:27 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/09/04 18:32:31 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
 
 NAME = philo
 
 SRCS =	src/main.c \
 		src/utils.c \
+		src/routine.c \
+		src/monitor.c \
 		src/parse.c
 
 OBJS = $(SRCS:%.c=%.o)
