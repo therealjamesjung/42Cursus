@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:41:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/09/03 20:07:41 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:35:21 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int _init_table(t_table *table)
     pthread_mutex_init(table->start, NULL);
     table->start_timestamp = _gettime();
     table->death_flag = 0;
+    table->full_cnt = 0;
     i = -1;
     while (++i < table->chair_cnt)
     {

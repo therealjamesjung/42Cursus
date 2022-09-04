@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 21:20:31 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/09/03 20:21:05 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:34:57 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ typedef struct s_table
     int             eat_time;
     int             sleep_time;
     int             necessary_eats;
-    int             death_flag;
     long long       start_timestamp;
+    int             death_flag;
+    int             full_cnt;
     pthread_mutex_t *m_log;
     pthread_mutex_t *start;
     struct s_philo  *philo;
