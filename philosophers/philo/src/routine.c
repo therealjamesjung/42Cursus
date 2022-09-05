@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 18:27:37 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/09/04 19:17:01 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:07:59 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,16 @@ int	_eat(t_philo *philo)
 {
 	if (_check_finish(philo) || !_pick_fork(philo))
 		return (0);
+	_log(philo, EAT);
 	pthread_mutex_lock(philo->m_eats);
+	pthread_mutex_lock(philo->table->m_log);
 	philo->eat_cnt++;
 	philo->last_eat = _gettime();
-	pthread_mutex_unlock(philo->m_eats);
-	pthread_mutex_lock(philo->table->m_log);
 	if (philo->table->necessary_eats && \
 		philo->table->necessary_eats == philo->eat_cnt)
 		philo->table->full_cnt++;
+	pthread_mutex_unlock(philo->m_eats);
 	pthread_mutex_unlock(philo->table->m_log);
-	if (_check_finish(philo))
-		return (0);
-	_log(philo, EAT);
 	_usleep(philo->table->eat_time);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);

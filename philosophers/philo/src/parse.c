@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:41:06 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/09/04 18:43:29 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:26:57 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ int	_validate_table(t_table *table)
 {
 	if (table->chair_cnt < 1)
 		return (0);
-	if (table->death_time < 0)
+	if (table->death_time < 1)
 		return (0);
-	if (table->eat_time < 0)
+	if (table->eat_time < 1)
 		return (0);
-	if (table->sleep_time < 0)
+	if (table->sleep_time < 1)
+		return (0);
+	if (table->necessary_eats == 0)
 		return (0);
 	return (1);
 }
@@ -33,7 +35,7 @@ int	_parse(int argc, char **argv, t_table *table)
 	table->death_time = ft_atoi(argv[2]);
 	table->eat_time = ft_atoi(argv[3]);
 	table->sleep_time = ft_atoi(argv[4]);
-	table->necessary_eats = 0;
+	table->necessary_eats = -1;
 	if (argc == 6)
 	{
 		table->necessary_eats = ft_atoi(argv[5]);

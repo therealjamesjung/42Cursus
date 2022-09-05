@@ -6,13 +6,13 @@
 #    By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 21:17:11 by jaekjung          #+#    #+#              #
-#    Updated: 2022/09/04 18:32:31 by jaekjung         ###   ########.fr        #
+#    Updated: 2022/09/05 12:20:13 by jaekjung         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = philo
 

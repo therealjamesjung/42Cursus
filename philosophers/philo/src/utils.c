@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 21:44:34 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/09/04 19:25:19 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:18:12 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	_usleep(long long time)
 
 	finish_time = time + _gettime();
 	while (finish_time > (long long) _gettime())
-		usleep(200);
+		usleep(100);
 }

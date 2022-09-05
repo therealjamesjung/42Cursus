@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/04 18:30:56 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/09/04 19:17:18 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:06:42 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ int	_check_death(t_table *table, int i)
 int	_check_necessary_eats(t_table *table)
 {
 	pthread_mutex_lock(table->m_log);
-	if (table->necessary_eats && table->full_cnt == table->necessary_eats)
-		table->death_flag = 1;
-	if (table->death_flag)
+	if (table->necessary_eats && table->full_cnt == table->chair_cnt)
 	{
+		table->death_flag = 1;
 		pthread_mutex_unlock(table->m_log);
 		return (1);
 	}

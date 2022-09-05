@@ -6,7 +6,7 @@
 /*   By: jaekjung <jaekjung@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 15:36:35 by jaekjung          #+#    #+#             */
-/*   Updated: 2022/09/04 19:21:17 by jaekjung         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:32:00 by jaekjung         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	_log(t_philo *philo, t_status status)
 {
-	long long	start_timestamp;
+	long long	start_time;
 
 	pthread_mutex_lock(philo->table->m_log);
-	start_timestamp = philo->table->start_timestamp;
+	start_time = philo->table->start_timestamp;
 	if (philo->table->full_cnt == philo->table->chair_cnt \
 		|| philo->table->death_flag)
 	{
@@ -26,16 +26,16 @@ void	_log(t_philo *philo, t_status status)
 	}
 	if (status == FORK)
 		printf("%lld %d has taken a fork\n", \
-			_gettime() - start_timestamp, philo->id);
+			_gettime() - start_time, philo->id + 1);
 	else if (status == EAT)
-		printf("%lld %d is eating\n", _gettime() - start_timestamp, philo->id);
+		printf("%lld %d is eating\n", _gettime() - start_time, philo->id + 1);
 	else if (status == SLEEP)
-		printf("%lld %d is sleeping\n", _gettime() - start_timestamp, philo->id);
+		printf("%lld %d is sleeping\n", _gettime() - start_time, philo->id + 1);
 	else if (status == THINK)
-		printf("%lld %d is thinking\n", _gettime() - start_timestamp, philo->id);
+		printf("%lld %d is thinking\n", _gettime() - start_time, philo->id + 1);
 	else if (status == DEAD)
 	{
-		printf("%lld %d died\n", _gettime() - start_timestamp, philo->id);
+		printf("%lld %d died\n", _gettime() - start_time, philo->id);
 		philo->table->death_flag = 1;
 	}
 	pthread_mutex_unlock(philo->table->m_log);
@@ -96,6 +96,7 @@ int	main(int argc, char **argv)
 	if (!_init(argc, argv, table))
 	{
 		printf("Parse Error");
+		free(table);
 		return (-1);
 	}
 	_run(table);
